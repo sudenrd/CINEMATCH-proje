@@ -198,3 +198,29 @@ function closeModal() {
     modal.style.display = "none";
     stopVideo(); 
 }
+
+// --- İLETİŞİM FORMU GÖNDERME SİMÜLASYONU ---
+document.addEventListener('DOMContentLoaded', () => {
+    
+    const contactForm = document.getElementById('contactForm');
+    const successMsg = document.getElementById('success-msg');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // 1. Sayfanın yenilenmesini DURDUR
+
+            // 2. Butona basılmış gibi işlem yap (Backend olmadığı için simüle ediyoruz)
+            
+            // Başarılı mesajını göster
+            successMsg.style.display = 'block';
+            
+            // 3. Formu temizle
+            contactForm.reset();
+
+            // 4. (Opsiyonel) 3 saniye sonra mesajı tekrar gizle
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 3000);
+        });
+    }
+});
