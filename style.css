@@ -84,7 +84,7 @@ body {
 .hero {
     min-height: 100vh; 
     width: 100%;
-    background: linear-gradient(to bottom, rgba(10, 10, 10, 0.78) 0%, rgba(10, 10, 10, 0.9) 70%, #000000 95%), url('resimler/cinematch-bg.jpg');
+    background: linear-gradient(to bottom, rgba(10, 10, 10, 0.564) 0%, rgba(10, 10, 10, 0.9) 70%, #000000 95%), url('resimler/cinematch-bg.jpg');
     background-size: cover;     
     background-position: center top; 
     background-repeat: no-repeat;
@@ -772,4 +772,81 @@ body {
         width: 90%;
         padding: 30px 20px;
     }
+}
+
+/* --- İLETİŞİM SAYFASI (CONTACT) STİLLERİ --- */
+
+/* Arka Plan (Login ile aynı) */
+.contact-page-body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), #000), url('resimler/cinematch-bg.jpg'); 
+    background-size: cover;
+    background-position: center;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Kartın Kendisi */
+.contact-card {
+    background: rgba(20, 20, 20, 0.95);
+    width: 100%;
+    max-width: 450px; /* Biraz daha geniş */
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 50px rgba(228, 132, 199, 0.15);
+    text-align: center;
+    animation: popup 0.5s ease;
+}
+
+/* Mesaj Kutusu (Textarea) Ayarları */
+.contact-form textarea {
+    width: 100%;
+    padding: 15px;
+    background: #333;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    resize: none; /* Köşeden tutup çekiştirmesinler */
+    transition: 0.3s;
+    font-family: 'Inter', sans-serif; /* Font bozulmasın */
+}
+
+.contact-form textarea:focus {
+    border-color: #e484c7;
+    background: #000;
+}
+
+/* Textarea için Label Ayarı (Biraz yukarıda dursun) */
+.input-group textarea:focus ~ label,
+.input-group textarea:not(:placeholder-shown) ~ label {
+    top: -10px;
+    left: 10px;
+    font-size: 0.8rem;
+    color: #e484c7;
+    background: #141414;
+    padding: 0 5px;
+}
+
+/* --- BAŞARILI MESAJI (Gizli) --- */
+.success-message {
+    display: none; /* Başta gizli */
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(46, 204, 113, 0.2); /* Yeşilimsi şeffaf */
+    border: 1px solid #2ecc71;
+    color: #2ecc71;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    animation: fadeIn 0.5s ease;
+}
+
+.success-message i {
+    margin-right: 8px;
 }
