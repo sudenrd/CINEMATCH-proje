@@ -126,6 +126,41 @@
         </div>
     </div>
 
+<section class="genre-section">
+    <h2 class="section-title">Türe Göre Göz At</h2>
+    <div class="genre-grid">
+        <a href="genre.html?id=28&name=Aksiyon" class="genre-card g-action"><span>Aksiyon</span></a>
+        <a href="genre.html?id=12&name=Macera" class="genre-card g-adventure"><span>Macera</span></a>
+        <a href="genre.html?id=16&name=Animasyon" class="genre-card g-animation"><span>Animasyon</span></a>
+        <a href="genre.html?id=35&name=Komedi" class="genre-card g-comedy"><span>Komedi</span></a>
+        <a href="genre.html?id=80&name=Suç" class="genre-card g-crime"><span>Suç</span></a>
+        <a href="genre.html?id=99&name=Belgesel" class="genre-card g-doc"><span>Belgesel</span></a>
+        <a href="genre.html?id=18&name=Dram" class="genre-card g-drama"><span>Dram</span></a>
+        <a href="genre.html?id=10751&name=Aile" class="genre-card g-family"><span>Aile</span></a>
+        <a href="genre.html?id=14&name=Fantastik" class="genre-card g-fantasy"><span>Fantastik</span></a>
+        <a href="genre.html?id=36&name=Tarih" class="genre-card g-history"><span>Tarih</span></a>
+        <a href="genre.html?id=27&name=Korku" class="genre-card g-horror"><span>Korku</span></a>
+        <a href="genre.html?id=10402&name=Müzik" class="genre-card g-music"><span>Müzik</span></a>
+        <a href="genre.html?id=9648&name=Gizem" class="genre-card g-mystery"><span>Gizem</span></a>
+        <a href="genre.html?id=10749&name=Romantik" class="genre-card g-romance"><span>Romantik</span></a>
+        <a href="genre.html?id=878&name=Bilim Kurgu" class="genre-card g-scifi"><span>Bilim Kurgu</span></a>
+        <a href="genre.html?id=10770&name=TV Film" class="genre-card g-tv"><span>TV Film</span></a>
+        <a href="genre.html?id=53&name=Gerilim" class="genre-card g-thriller"><span>Gerilim</span></a>
+        <a href="genre.html?id=10752&name=Savaş" class="genre-card g-war"><span>Savaş</span></a>
+        <a href="genre.html?id=37&name=Vahşi Batı" class="genre-card g-western"><span>Vahşi Batı</span></a>
+        <a href="genre.html?id=210024&name=Anime&type=keyword" class="genre-card g-anime"><span>Anime</span></a>
+        <a href="genre.html?id=18035&name=Dövüş Sanatları&type=keyword" class="genre-card g-fight"><span>Dövüş Sanatları</span></a>
+        <a href="genre.html?id=10183&name=Bağımsız Sinema&type=keyword" class="genre-card g-indie"><span>Bağımsız</span></a>
+        <a href="genre.html?id=9882&name=Uzay&type=keyword" class="genre-card g-space"><span>Uzay</span></a>
+        <a href="genre.html?id=10714&name=Gençlik&type=keyword" class="genre-card g-youth"><span>Gençlik</span></a>
+        <a href="genre.html?id=10123&name=Yemek&type=keyword" class="genre-card g-food"><span>Yemek</span></a>
+        <a href="genre.html?id=10183&name=Bağımsız Sinema&type=keyword" class="genre-card g-indie"><span>Bağımsız</span></a>
+        <a href="genre.html?id=10683&name=Kült Filmler&type=keyword" class="genre-card g-cult"><span>Kült</span></a>
+        
+        
+    </div>
+</section>
+
     <script src="script.js"></script>
 
     <footer class="corporate-footer">
@@ -145,7 +180,7 @@
                 <a href="#" class="footer-login-link">Hesabım</a>
                 <a href="#">Sıkça Sorulan Sorular</a>
                 <a href="contact.html">İletişim</a>
-                <a href="#">Şifre Sıfırlama</a>
+                <a href="#" class="footer-forgot-link">Şifre Sıfırlama</a>
             </div>
 
             <div class="footer-column">
@@ -162,7 +197,7 @@
 
         <div class="footer-bottom">
             <div class="footer-brand">CINEMATCH</div>
-            <p class="copyright">© 2025 Cinematch. Tüm hakları saklıdır.</p>
+            <p class="copyright">© 2026 Cinematch. Tüm hakları saklıdır.</p>
             
             <div class="footer-socials">
                 <a href="#"><i class="fa-brands fa-instagram"></i></a>
@@ -208,7 +243,52 @@
         </div>
     </div>
 
+    <div id="registerModal" class="modal-overlay">
+    <div class="login-card">
+        <span class="close-btn register-close">&times;</span>
+        <div class="login-header">
+            <div class="logo" style="font-size: 1.5rem;">CINEMATCH</div>
+            <h2>Kayıt Ol</h2>
+            <p>Filmlerle dolu bir dünyaya adım at!</p>
+        </div>
+        <form class="login-form">
+            <div class="input-group">
+                <input type="text" required placeholder=" ">
+                <label>Ad Soyad</label>
+            </div>
+            <div class="input-group">
+                <input type="email" required placeholder=" ">
+                <label>E-posta Adresi</label>
+            </div>
+            <div class="input-group">
+                <input type="password" required placeholder=" ">
+                <label>Şifre</label>
+            </div>
+            <button type="submit" class="login-submit-btn">Kayıt Ol</button>
+        </form>
+        <p class="signup-text" style="margin-top: 20px;">
+            Zaten hesabın var mı? <a href="#" id="to-login">Giriş Yap</a>
+        </p>
+    </div>
+</div>
 
+<div id="forgotPasswordModal" class="modal-overlay">
+    <div class="login-card">
+        <span class="close-btn forgot-close">&times;</span>
+        <div class="login-header">
+            <div class="logo" style="font-size: 1.5rem;">CINEMATCH</div>
+            <h2>Şifre Sıfırlama</h2>
+            <p>E-posta adresini gir, sana bir bağlantı gönderelim.</p>
+        </div>
+        <form class="login-form">
+            <div class="input-group">
+                <input type="email" required placeholder=" ">
+                <label>E-posta Adresi</label>
+            </div>
+            <button type="submit" class="login-submit-btn">Sıfırlama Bağlantısı Gönder</button>
+        </form>
+    </div>
+</div>
 
 </body> 
 </html>
