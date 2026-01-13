@@ -773,80 +773,456 @@ body {
         padding: 30px 20px;
     }
 }
+/* --- İLETİŞİM SAYFASI MASTER DÜZENLEMELER --- */
 
-/* --- İLETİŞİM SAYFASI (CONTACT) STİLLERİ --- */
-
-/* Arka Plan (Login ile aynı) */
 .contact-page-body {
-    margin: 0;
-    height: 100vh;
+    background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.8), #000), url('resimler/cinematch-bg.jpg'); 
-    background-size: cover;
-    background-position: center;
-    font-family: 'Inter', sans-serif;
+    padding-top: 80px;
 }
 
-/* Kartın Kendisi */
-.contact-card {
-    background: rgba(20, 20, 20, 0.95);
+.contact-master-wrapper {
     width: 100%;
-    max-width: 450px; /* Biraz daha geniş */
-    padding: 40px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 50px rgba(228, 132, 199, 0.15);
-    text-align: center;
-    animation: popup 0.5s ease;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 10;
 }
 
-/* Mesaj Kutusu (Textarea) Ayarları */
-.contact-form textarea {
-    width: 100%;
-    padding: 15px;
-    background: #333;
-    border: 2px solid transparent;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 1rem;
-    outline: none;
-    resize: none; /* Köşeden tutup çekiştirmesinler */
-    transition: 0.3s;
-    font-family: 'Inter', sans-serif; /* Font bozulmasın */
-}
+/* Ritmik Logo Ayarı */
+.logo span { display: inline-block; background: linear-gradient(45deg, #ff5acd, #fb7299, #ffffff); -webkit-background-clip: text; color: transparent; }
+.logo span:nth-child(1), .logo span:nth-child(9) { transform: scaleY(1.32); }
+.logo span:nth-child(2), .logo span:nth-child(8) { transform: scaleY(1.24); }
+.logo span:nth-child(3), .logo span:nth-child(7) { transform: scaleY(1.12); }
+.logo span:nth-child(4), .logo span:nth-child(6) { transform: scaleY(1.05); }
 
-.contact-form textarea:focus {
-    border-color: #e484c7;
-    background: #000;
-}
-
-/* Textarea için Label Ayarı (Biraz yukarıda dursun) */
-.input-group textarea:focus ~ label,
-.input-group textarea:not(:placeholder-shown) ~ label {
-    top: -10px;
-    left: 10px;
-    font-size: 0.8rem;
-    color: #e484c7;
-    background: #141414;
-    padding: 0 5px;
-}
-
-/* --- BAŞARILI MESAJI (Gizli) --- */
-.success-message {
+/* Başarı Mesajı Stili */
+.success-notification {
     display: none; /* Başta gizli */
-    margin-top: 20px;
+    margin-top: 25px;
     padding: 15px;
-    background: rgba(46, 204, 113, 0.2); /* Yeşilimsi şeffaf */
+    background: rgba(46, 204, 113, 0.1);
     border: 1px solid #2ecc71;
     color: #2ecc71;
-    border-radius: 10px;
+    border-radius: 12px;
+    text-align: center;
     font-weight: 600;
-    font-size: 0.95rem;
-    animation: fadeIn 0.5s ease;
+    animation: fadeInSuccess 0.5s ease;
 }
 
-.success-message i {
-    margin-right: 8px;
+@keyframes fadeInSuccess {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Premium Kart ve Buton */
+.contact-card-premium {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+}
+
+.premium-submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(45deg, #ff5acd, #fb7299);
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: 0.3s;
+    /* Butonun gölgesini sabitledik, üst üste binme yapmaz */
+    box-shadow: 0 10px 20px rgba(251, 114, 153, 0.2);
+}
+
+.premium-submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(251, 114, 153, 0.4);
+}
+
+.back-nav-link {
+    text-decoration: none;
+    color: #666;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+/* --- MESAJ KUTUSU (TEXTAREA) BEYAZLIK DÜZELTME --- */
+.contact-form .input-group textarea {
+    background: rgba(255, 255, 255, 0.03) !important; /* Koyu/Şeffaf arka plan */
+    color: #fff !important; /* Beyaz yazı */
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    padding: 15px !important;
+    width: 100% !important;
+    outline: none !important;
+    transition: 0.3s !important;
+    font-family: inherit; /* Yazı tipi bozulmasın */
+}
+
+/* Üstüne tıklayınca (Focus) */
+.contact-form .input-group textarea:focus {
+    border-color: #fb7299 !important;
+    background: rgba(251, 114, 153, 0.05) !important;
+}
+
+/* BAŞARI MESAJI (Gizli & Şık) */
+.success-notification {
+    display: none; 
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(46, 204, 113, 0.15);
+    border: 1px solid #2ecc71;
+    color: #2ecc71;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+    animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- GENRE GRID (TÜR LİSTESİ) --- */
+.genre-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
+    gap: 20px;
+    padding: 40px 8%;
+    justify-content: center;
+}
+
+.genre-card {
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+    background-origin: border-box;
+    background-clip: border-box;
+    height: 100px; 
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+
+    background-repeat: no-repeat;
+    background-position: center; /* Resmi tam ortalar */
+    background-size: cover;      /* RESMİ KESİN OLARAK KUTUYA TAM SIĞDIRIR, BOŞLUK BIRAKMAZ */
+}
+
+.genre-card span {
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.8rem;
+    z-index: 2;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.genre-card:hover {
+    transform: scale(1.05);
+    border-color: #975e6e47;
+    box-shadow: 0 5px 10px rgba(251, 114, 153, 0.3);
+}
+
+/* genre.html'deki film listesi için özel düzenleme */
+#genre-movies-list {
+    display: grid;
+    /* Her kart min 160px, max eldeki alanın payı kadar olsun */
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
+    gap: 40px 20px; /* Satır ve sütun boşluğu */
+    padding: 20px 6%;
+    justify-items: center; /* Kartları kendi hücrelerinde ortalar */
+    align-items: start;
+}
+
+/* Kartların içindeki resimlerin ve yazıların bozulmaması için */
+#genre-movies-list .movie-card {
+    width: 160px; /* Sabit genişlik */
+    height: auto;
+    margin: 0; 
+}
+
+#genre-movies-list .movie-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+
+.g-action { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/aksiyon.jpg'); }
+.g-adventure { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/macera.jpg'); }
+.g-animation { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/animasyon.jpg'); }
+.g-comedy { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/komedi.jpg'); }
+.g-crime { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/suc.jpg'); }
+.g-doc { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/belgesel.jpg'); }
+.g-drama { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/dram.jpg'); }
+.g-family { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/aile.jpg'); }
+.g-fantasy { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/fantastik.jpg'); }
+.g-history { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/tarih.jpg'); }
+.g-horror { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/korku.jpg'); }
+.g-music { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/muzik.jpg'); }
+.g-mystery { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/gizem.jpg'); }
+.g-romance { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/romantik.jpg'); }
+.g-scifi { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/bilimkurgu.jpg'); }
+.g-tv { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/tvfilmi.jpg'); }
+.g-thriller { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/gerilim.jpg'); }
+.g-war { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/savas.jpg'); }
+.g-western { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/western.jpg'); }
+
+.g-anime { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/anime.jpg'); }
+.g-fight { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/dovus.jpg'); }
+.g-indie { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/bagimsiz.jpg'); }
+.g-space { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/uzay.jpg'); }
+.g-youth { background-image: linear-gradient(rgba(0,0  ,0,0.5), rgba(0,0,0,0.5)), url('resimler/genclik.jpg'); }
+.g-cult { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/kult.jpg'); }
+.g-food { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/yemek.jpg'); }
+    
+
+
+/* genre.html içindeki ana kapsayıcı */
+.genre-movie-results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Filmleri yatayda ortalar */
+    gap: 25px;               /* Kartlar arası boşluk */
+    max-width: 1400px;       /* Sayfanın çok fazla yayılmasını engeller */
+    margin: 0 auto;          /* Kapsayıcıyı sayfanın ortasına alır */
+    padding: 20px;
+}
+
+/* Film başlıklarının daha kibar durması için */
+.movie-card p {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ccc;
+    margin-top: 10px;
+    text-align: center;
+    max-width: 150px; /* Başlığın karttan taşmasını engeller */
+}
+
+#load-more-btn {
+    background: transparent;
+    color: #fb7299;
+    border: 1px solid #fb7299;
+    padding: 10px 30px;
+    font-size: 0.85rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s all;
+    display: block;
+    margin: 50px auto; /* Ortalamak için */
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+#load-more-btn:hover {
+    background: #fb7299;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(251, 114, 153, 0.4);
+}
+
+ 
+.g-horror { 
+    background-image: url('resimler/korku.jpg'); 
+}
+
+.section-title {
+    color: #e5e5e5;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 800;
+    
+    padding-left: 30;
+    margin-left: 6%; 
+    
+    text-shadow: 0 0 25px rgba(251, 114, 153, 0.3);
+    letter-spacing: -0.5px;
+    text-align: left; 
+}
+
+/* Detay Sayfası Genel */
+.detail-page { background-color: #000; overflow-x: hidden; }
+
+/* Arka Plan Çizgisini Yok Eden Efekt */
+.movie-backdrop {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100vh;
+    background-size: cover;
+    background-position: center top;
+    z-index: -1;
+    opacity: 0.4;
+    mask-image: linear-gradient(to bottom, black 20%, transparent 80%);
+    -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 80%);
+}
+
+.detail-container {
+    max-width: 1200px;
+    margin: 120px auto 50px auto;
+    padding: 0 20px;
+}
+
+.detail-content-wrapper {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+/* Poster Alanı */
+.poster-sidebar { flex: 0 0 300px; text-align: center; }
+.main-poster img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.trailer-btn-new {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid #fb7299;
+    color: #fff;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.trailer-btn-new:hover { background: #fb7299; box-shadow: 0 0 15px #fb7299; }
+
+/* Bilgi Alanı */
+.main-info-area { flex: 1; }
+.main-info-area h1 { font-size: 3.5rem; margin-bottom: 10px; }
+.info-meta { display: flex; gap: 20px; color: #ccc; margin-bottom: 20px; font-weight: 600; }
+
+.genre-pills { display: flex; gap: 10px; margin-bottom: 30px; }
+.pill { background: #1a1a1a; padding: 6px 18px; border-radius: 20px; border: 1px solid #333; font-size: 0.85rem; }
+
+.cast-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 20px;
+    margin-top: 15px;
+}
+.cast-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 5px; }
+
+/* Yorumlar Alanı */
+.bottom-comments { margin-top: 80px; }
+.section-divider { border: 0; border-top: 1px solid #222; margin-bottom: 40px; }
+.login-prompt { background: #111; padding: 30px; border-radius: 10px; text-align: center; border: 1px dashed #444; }
+
+@media (max-width: 768px) {
+    .detail-content-wrapper { flex-direction: column; align-items: center; }
+    .main-info-area { text-align: center; }
+    .info-meta, .genre-pills { justify-content: center; }
+}
+
+/* --- RİTMİK LOGO (Y Ekseninde Büyütme) --- */
+.logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 2.2rem; /* Detay sayfasında bir tık kibar dursun diye 2.2 yaptık */
+    letter-spacing: -2px;
+}
+
+.logo span {
+    display: inline-block;
+    background: linear-gradient(45deg, #ff5acd, #fb7299, #ffffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: 0.3s;
+}
+
+/* Harflerin o meşhur Y ekseni ritmi */
+.logo span:nth-child(1), .logo span:nth-child(9) { transform: scaleY(1.32); }
+.logo span:nth-child(2), .logo span:nth-child(8) { transform: scaleY(1.24); }
+.logo span:nth-child(3), .logo span:nth-child(7) { transform: scaleY(1.12); }
+.logo span:nth-child(4), .logo span:nth-child(6) { transform: scaleY(1.05); }
+.logo span:nth-child(5) { transform: scaleY(1.0); }
+
+/* --- YORUM ALANI (KLAS TASARIM) --- */
+.login-prompt {
+    background: rgba(255, 255, 255, 0.03); /* Çok hafif şeffaf beyaz */
+    backdrop-filter: blur(10px); /* Arkayı hafif bulanıklaştırır, çok klas durur */
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    /* Çizik çizgiler gitti, yerine çok ince neon bir çerçeve geldi */
+    border: 1px solid rgba(251, 114, 153, 0.2); 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(251, 114, 153, 0.05);
+    margin: 20px 0;
+}
+
+.login-prompt p {
+    color: #ccc;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+/* "Oturum Açın" Linki */
+.login-prompt a {
+    color: #fb7299 !important;
+    text-decoration: none;
+    position: relative;
+    padding: 0 5px;
+    transition: 0.3s;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+/* Altına şık bir çizgi efekti */
+.login-prompt a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background: #fb7299;
+    transition: 0.3s;
+    box-shadow: 0 0 10px #fb7299;
+}
+
+.login-prompt a:hover::after {
+    width: 100%;
+}
+
+.login-prompt a:hover {
+    text-shadow: 0 0 15px #fb7299;
+}
+
+/* Henüz Yorum Yok Yazısı */
+#no-comment-msg {
+    opacity: 0.6;
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: 1px;
 }
