@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINEMATCH - İletişim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="contact-page-body">
+
+    <nav class="navbar">
+        <div class="logo" onclick="location.href='index.html'">
+            <span>C</span><span>I</span><span>N</span><span>E</span><span>M</span><span>A</span><span>T</span><span>C</span><span>H</span>
+        </div>
+    </nav>
+
+    <div class="contact-master-wrapper">
+        <a href="index.html" class="back-nav-link">
+            <i class="fa-solid fa-arrow-left-long"></i> ANA SAYFAYA DÖN
+        </a>
+
+        <div class="contact-card-premium">
+            <div class="contact-header">
+                <h2>BİZE ULAŞIN</h2>
+                <div class="header-line"></div>
+                <p>Görüşleriniz bizim için çok değerli.</p>
+            </div>
+
+            <form class="contact-form" id="contact-form">
+                <div class="input-group">
+                    <input type="text" required placeholder=" ">
+                    <label>Adınız Soyadınız</label>
+                </div>
+                <div class="input-group">
+                    <input type="email" required placeholder=" ">
+                    <label>E-posta Adresi</label>
+                </div>
+                <div class="input-group">
+                    <textarea required placeholder=" " rows="4"></textarea>
+                    <label>Mesajınız</label>
+                </div>
+                <button type="submit" class="premium-submit-btn">MESAJI GÖNDER</button>
+            </form>
+
+            <div id="success-msg" class="success-notification">
+                <i class="fa-solid fa-circle-check"></i> Mesajınız başarıyla gönderildi!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Sayfanın yenilenmesini engeller
+            
+            const msgBox = document.getElementById('success-msg');
+            
+            // Mesajı göster
+            msgBox.style.display = 'block';
+            
+            // Formu temizle
+            this.reset();
+            
+            // 4 saniye sonra mesajı kapat
+            setTimeout(() => {
+                msgBox.style.display = 'none';
+            }, 4000);
+        });
+    </script>
+</body>
+</html>
