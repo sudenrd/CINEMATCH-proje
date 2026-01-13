@@ -1,83 +1,28 @@
-/* --- 1. SABİTLER VE API AYARLARI --- */
 const API_KEY = '6b2e0878e3637f364a6ad51a5292b0fc'; 
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMAGE_URL = 'https://image.tmdb.org/t/p/w500'; 
+const BACKDROP_URL = 'https://image.tmdb.org/t/p/original'; 
 
-/* --- 2. SAYFA YÜKLENDİĞİNDE ÇALIŞACAKLAR --- */
+const modal = document.getElementById('movieModal');
+const videoContainer = document.getElementById('video-container'); 
+const modalCard = document.getElementById('modal-card-container'); 
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Film Listelerini Çek
+    // Listeleri çek
     fetchMovies(`${BASE_URL}/movie/top_rated?api_key=${API_KEY}&language=tr-TR&page=1`, 'imdb-list', 50);
     fetchMovies(`${BASE_URL}/trending/movie/week?api_key=${API_KEY}&language=tr-TR`, 'trend-list', 20);
     if(document.getElementById('upcoming-list')) {
         fetchMovies(`${BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=tr-TR&page=1`, 'upcoming-list', 10);
     }
 
-    // Modal Elementlerini Tanımla
-    const loginModal = document.getElementById('loginModal');
-    const registerModal = document.getElementById('registerModal');
-    const forgotModal = document.getElementById('forgotPasswordModal');
-
-    // --- MODAL AÇMA BUTONLARI ---
-    const loginBtn = document.querySelector('.nav-btn'); // Navbar'daki Oturum Aç
-    const footerLoginBtn = document.querySelector('.footer-login-link'); // Footer'daki Hesabım
-    const footerForgotLink = document.querySelector('.footer-forgot-link'); // Footer'daki Şifre Sıfırlama
-
-    if (loginBtn) loginBtn.onclick = (e) => { e.preventDefault(); loginModal.style.display = 'flex'; };
-    if (footerLoginBtn) footerLoginBtn.onclick = (e) => { e.preventDefault(); loginModal.style.display = 'flex'; };
-    if (footerForgotLink) footerForgotLink.onclick = (e) => { e.preventDefault(); forgotModal.style.display = 'flex'; };
-
-    // --- MODAL ARASI GEÇİŞLER ---
-    
-    // Giriş Modalından -> Kayıt Ol'a geçiş
-    const signupLink = document.querySelector('.signup-text a');
-    if (signupLink) {
-        signupLink.onclick = (e) => {
-            e.preventDefault();
-            loginModal.style.display = 'none';
-            registerModal.style.display = 'flex';
-        };
-    }
-
-    // Kayıt Modalından -> Giriş Yap'a geri dönüş
-    const toLoginLink = document.getElementById('to-login');
-    if (toLoginLink) {
-        toLoginLink.onclick = (e) => {
-            e.preventDefault();
-            registerModal.style.display = 'none';
-            loginModal.style.display = 'flex';
-        };
-    }
-
-    // Giriş Modalından -> Şifremi Unuttum'a geçiş
-    const forgotLink = document.querySelector('.forgot-link');
-    if (forgotLink) {
-        forgotLink.onclick = (e) => {
-            e.preventDefault();
-            loginModal.style.display = 'none';
-            forgotModal.style.display = 'flex';
-        };
-    }
-
-    // --- KAPATMA İŞLEMLERİ ---
-    
-    // Tüm X (Kapatma) butonlarını ayarla
-    document.querySelectorAll('.close-btn').forEach(btn => {
-        btn.onclick = () => {
-            loginModal.style.display = 'none';
-            registerModal.style.display = 'none';
-            forgotModal.style.display = 'none';
-        };
-    });
-
-    // Dışarıya (Overlay) tıklandığında hepsini kapat
+    // Modal Kapatma Olayları
     window.onclick = (event) => {
-        if (event.target == loginModal) loginModal.style.display = 'none';
-        if (event.target == registerModal) registerModal.style.display = 'none';
-        if (event.target == forgotModal) forgotModal.style.display = 'none';
+        if (event.target == modal) closeModal();
+        const loginModal = document.getElementById('loginModal');
+        if (loginModal && event.target == loginModal) loginModal.style.display = "none";
     };
 });
 
-/* --- 3. FİLM ÇEKME FONKSİYONU --- */
 async function fetchMovies(url, containerId, movieCount) {
     try {
         const container = document.getElementById(containerId);
@@ -88,16 +33,10 @@ async function fetchMovies(url, containerId, movieCount) {
         const data1 = await response1.json();
         allMovies = data1.results; 
 
-        // IMDb listesi gibi çok film gereken yerlerde 2. ve 3. sayfaları da çek
         if (movieCount > 20) {
             const response2 = await fetch(url.replace('page=1', 'page=2'));
             const data2 = await response2.json();
             allMovies = allMovies.concat(data2.results);
-        }
-        if (movieCount > 40) {
-            const response3 = await fetch(url.replace('page=1', 'page=3'));
-            const data3 = await response3.json();
-            allMovies = allMovies.concat(data3.results);
         }
 
         const finalMovies = allMovies.slice(0, movieCount);
@@ -105,21 +44,66 @@ async function fetchMovies(url, containerId, movieCount) {
         finalMovies.forEach((movie, index) => {
             const card = document.createElement('div');
             card.className = 'movie-card';
-            
             card.innerHTML = `
                 <div class="rank">${index + 1}</div>
                 <img src="${IMAGE_URL + movie.poster_path}" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/200x300?text=Resim+Yok'">
             `;
 
-            // FİLME TIKLAYINCA DETAY SAYFASINA GİT
-            card.addEventListener('click', () => {
-                location.href = `movie-detail.html?id=${movie.id}`;
-            });
+            // BURASI ESKİ HALİNE DÖNDÜ: Yeni sayfa yerine Modal açar
+            card.addEventListener('click', () => openModal(movie.id));
 
             container.appendChild(card);
         });
+    } catch (error) { console.error("Hata:", error); }
+}
 
-    } catch (error) {
-        console.error("Film çekme hatası:", error);
+async function openModal(movieId) {
+    stopVideo();
+    try {
+        let url = `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=tr-TR&append_to_response=release_dates`;
+        let response = await fetch(url);
+        let movie = await response.json();
+
+        let videoUrl = `${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`;
+        let vidResp = await fetch(videoUrl);
+        let vidData = await vidResp.json();
+
+        document.getElementById('m-title').innerText = movie.title;
+        document.getElementById('m-year').innerText = movie.release_date ? movie.release_date.split('-')[0] : 'N/A';
+        document.getElementById('m-genres').innerText = movie.genres ? movie.genres.map(genre => genre.name).join(', ') : '';
+        document.getElementById('m-desc').innerText = movie.overview || "(Özet bulunamadı)";
+
+        const bgImage = movie.backdrop_path || movie.poster_path;
+        document.getElementById('m-img').src = BACKDROP_URL + bgImage;
+
+        const trailerBtn = document.getElementById('m-trailer');
+        let trailer = vidData.results.find(v => v.site === 'YouTube' && v.type === 'Trailer');
+        let trailerKey = trailer ? trailer.key : null;
+
+        trailerBtn.onclick = function() {
+            if (trailerKey) playVideo(trailerKey);
+            else window.open(`https://www.youtube.com/results?search_query=${movie.title} trailer`, '_blank');
+        };
+
+        modal.style.display = "flex";
+    } catch (error) { console.error("Detay hatası:", error); }
+}
+
+function playVideo(videoKey) {
+    modalCard.classList.add('video-mode');
+    videoContainer.style.display = 'block';
+    videoContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoKey}?autoplay=1" frameborder="0" allowfullscreen></iframe>`;
+}
+
+function stopVideo() {
+    modalCard.classList.remove('video-mode');
+    if(videoContainer) {
+        videoContainer.innerHTML = '';
+        videoContainer.style.display = 'none';
     }
+}
+
+function closeModal() {
+    modal.style.display = "none";
+    stopVideo(); 
 }
