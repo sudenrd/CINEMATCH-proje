@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>CINEMATCH - Tür Keşfi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background:#000;">
+    
+    <nav class="navbar">
+        <div class="logo" onclick="location.href='index.html'">
+            <span>C</span>
+            <span>I</span>
+            <span>N</span>
+            <span>E</span>
+            <span>M</span>
+            <span>A</span>
+            <span>T</span>
+            <span>C</span>
+            <span>H</span>
+        </div>
+    </nav>
+
+    <div class="movie-section" style="margin-top: 120px;">
+        <h2 class="section-title" id="genre-name-title">Keşfet</h2>
+        <div class="movie-slider" id="genre-movies-list" style="flex-wrap: wrap; overflow: visible;">
+            </div>
+        <button id="load-more" class="login-submit-btn" style="width: 200px; margin: 40px auto; display: none;">Daha Fazla Yükle</button>
+    </div>
+
+    <div id="movieModal" class="modal-overlay">
+    <div class="modal-card" id="modal-card-container">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div class="modal-content-wrapper">
+            <div class="modal-poster">
+                <img id="m-img" src="" alt="Film Afişi">
+                <div id="video-container"></div>
+                <button id="stop-video-btn" onclick="stopVideo()">
+                    <i class="fa-solid fa-arrow-left"></i> Geri Dön
+                </button>
+            </div>
+            <div class="modal-info" id="modal-info-area">
+                <h2 id="m-title">FİLM BAŞLIĞI</h2>
+                <div class="modal-meta">
+                    <span class="genres" id="m-genres">Türler</span>
+                    <span id="m-year">yil</span>
+                    <span id="m-age" class="age-limit"></span>
+                </div>
+                <p id="m-desc">Film açıklaması</p>
+                <div class="modal-buttons">
+                    <button id="m-trailer" class="play-btn">
+                        <i class="fa-solid fa-play"></i> Fragmanı İzle
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="scroll-anchor" style="height: 50px;"></div>
+
+    <script src="genre.js"></script>
+</body>
+</html>
