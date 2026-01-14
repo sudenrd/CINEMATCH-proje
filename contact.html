@@ -51,21 +51,21 @@
 
     <script>
         document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault(); // Sayfanın yenilenmesini engeller
+            e.preventDefault();
             
             const msgBox = document.getElementById('success-msg');
             
-            // Mesajı göster
             msgBox.style.display = 'block';
-            
-            // Formu temizle
+       
             this.reset();
-            
-            // 4 saniye sonra mesajı kapat
+      
             setTimeout(() => {
                 msgBox.style.display = 'none';
             }, 4000);
         });
     </script>
+
+    <script src="config.js"></script> 
+    <script src="script.js"></script>
 </body>
 </html>
