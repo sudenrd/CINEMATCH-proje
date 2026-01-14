@@ -17,13 +17,17 @@ Modern Kullanıcı Arayüzü : Tamamen responsive, karanlık mod temalı ve kull
 TEKNİK ALTYAPI VE GÜVENLİK
 
 Vanilla JavaScript: Framework kullanmadan, temel JS yetenekleri ve asenkron programlama ile geliştirilmiştir.
+
 API Güvenliği: Hassas veri olan API anahtarları, .gitignore dosyası aracılığıyla saklanmış ve GitHub'a yüklenmesi engellenmiştir.
+
 Örnek Yapı: Diğer geliştiricilerin projeyi ayağa kaldırabilmesi için config.example.js dosyası dökümante edilmiştir.
 
 EKLENECEK ÖZELLİKLER
 
 Duygu Analizli Eşleşme: Kullanıcının o anki ruh haline göre özel algoritmik film önerileri.
+
 Gelişmiş Arama: Film adına göre gerçek zamanlı arama motoru.
+
 Kullanıcı Listeleri: Favori filmleri kaydetme ve kişisel izleme listeleri oluşturma.
 
 KURULUM VE ÇALIŞTIRMA
