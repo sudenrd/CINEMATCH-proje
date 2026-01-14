@@ -4,7 +4,7 @@
 ## Proje Görselleri
 <p align="center">
   <b>Ana Vitrin ve Film Listeleri</b><br>
-  <img src="resimler/Ana%20vitrin%20film%20kart%C4%B1%20ve%20modal%20g%C3%B6r%C3%BCn%C3%BCm%C3%BC.png" width="850">
+  <img src="https://github.com/sudenrd/CINEMATCH-proje/blob/main/tan%C4%B1t%C4%B1m%20g%C3%B6rselleri/Ana%20vitrin%20film%20kart%C4%B1%20ve%20modal%20gorunumu.png" width="850">
 </p>
 
 <p align="center">
