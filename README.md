@@ -2,29 +2,30 @@
 **Cinematch**, modern web teknolojileri kullanılarak geliştirilmiş, kullanıcıların güncel ve popüler filmleri interaktif bir şekilde keşfetmesini sağlayan bir platformdur. Ankara Üniversitesi Bilgisayar Mühendisliği bünyesinde yürütülen web geliştirme çalışmaları kapsamında tasarlanmıştır.
 
 ## Proje Görselleri
+
 <p align="center">
-  <b>Ana Vitrin ve Film Listeleri</b><br>
+  <b>Ana Vitrin Film Kartı ve Modal Görünümü</b><br><br>
+  <img src="https://github.com/sudenrd/CINEMATCH-proje/blob/main/tan%C4%B1t%C4%B1m%20g%C3%B6rselleri/Ana%20vitrin%20ve%20film%20listeleri.png" width="850">
+</p>
+
+<p align="center">
+  <b>Ana Vitrin ve Film Listeleri</b><br><br>
   <img src="https://github.com/sudenrd/CINEMATCH-proje/blob/main/tan%C4%B1t%C4%B1m%20g%C3%B6rselleri/Ana%20vitrin%20film%20kart%C4%B1%20ve%20modal%20gorunumu.png" width="850">
 </p>
 
 <p align="center">
-  <b>Ana Vitrin Film Kartı ve Modal Görünümü</b><br>
-  <img src="resimler/2.png" width="850">
-</p>
-
-<p align="center">
-  <b>Kategori Görünümü (Aksiyon)</b><br>
-  <img src="resimler/3.png" width="850">
+  <b>Kategori Görünümü</b><br>
+  <img src="https://github.com/sudenrd/CINEMATCH-proje/blob/main/tan%C4%B1t%C4%B1m%20g%C3%B6rselleri/Kategori%20gorunumu.png" width="850">
 </p>
 
 <p align="center">
   <b>Kategori Sayfası İçinde Yer Alan Film Detayları Görünümü</b><br>
-  <img src="resimler/4.png" width="850">
+  <img src="https://github.com/sudenrd/CINEMATCH-proje/blob/main/tan%C4%B1t%C4%B1m%20g%C3%B6rselleri/Kategori%20sayfas%C4%B1%20icinde%20yer%20alan%20film%20detaylar%C4%B1%20gorunumu.png" width="850">
 </p>
 
 <p align="center">
-  <b>Kullanıcı Yorum Yapma Bölümü ve Kontrolleri</b><br>
-  <img src="resimler/5.png" width="850">
+  <b>Kullanıcı Yorum Yapma Bölümü</b><br>
+  <img src="https://github.com/sudenrd/CINEMATCH-proje/blob/main/tan%C4%B1t%C4%B1m%20g%C3%B6rselleri/Yorum%20yapma%20bolumu.pngg" width="850">
 </p>
 
 ## Mevcut Özellikler
