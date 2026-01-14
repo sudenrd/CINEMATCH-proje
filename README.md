@@ -1,9 +1,7 @@
-CINEMATCH - FİLM KEŞİF PORTALI
-
-Cinematch, modern web teknolojileri kullanılarak geliştirilmiş, kullanıcıların güncel ve popüler filmleri interaktif bir şekilde keşfetmesini sağlayan bir platformdur. Ankara Üniversitesi Bilgisayar Mühendisliği bünyesinde yürütülen web geliştirme çalışmaları kapsamında tasarlanmıştır.
+# 🎬 CINEMATCH - Film Keşif Portalı
+**Cinematch**, modern web teknolojileri kullanılarak geliştirilmiş, kullanıcıların güncel ve popüler filmleri interaktif bir şekilde keşfetmesini sağlayan bir platformdur. Ankara Üniversitesi Bilgisayar Mühendisliği bünyesinde yürütülen web geliştirme çalışmaları kapsamında tasarlanmıştır.
 
 ## 🖼️ Proje Görselleri
-
 <p align="center">
   <b>Ana Vitrin ve Film Listeleri</b><br>
   <img src="ekran-goruntuleri/ana-vitrin.png" width="850" alt="Ana Vitrin">
@@ -29,36 +27,24 @@ Cinematch, modern web teknolojileri kullanılarak geliştirilmiş, kullanıcıla
   <img src="ekran-goruntuleri/yorum-alani.png" width="850" alt="Yorum Bölümü">
 </p>
 
-MEVCUT ÖZELLİKLER
+## 🚀 Mevcut Özellikler
+* **Dinamik Film Akışı:** TMDB API entegrasyonu ile "En Yüksek Puanlılar", "Trendler" ve "Vizyondakiler" listeleri otomatik olarak güncellenir.
+* **Gelişmiş Modal Yapısı:** Film kartlarına tıklandığında açılan pencerelerde film özeti, türler ve yayın yılı gibi detaylar sunulur.
+* **Video ENtegrasyonu:** YouTube API desteği ile film fragmanları doğrudan uygulama üzerinden izlenebilir.
+* **Kategori Fİltreleme:** Kullanıcılar ilgi duydukları türlere göre özel listelere ulaşabilir.
+* **Kullanıcı Arayüzü:** Tamamen responsive, karanlık mod temalı ve kullanıcı dostu bir arayüz.
 
-Dinamik Film Listeleri: TMDB API entegrasyonu ile "En Yüksek Puanlılar", "Trendler" ve "Vizyondakiler" listeleri otomatik olarak güncellenir.
+## 🛠️ Teknik Altyapı ve Güvenlik
+* **Javascript:** Framework kullanmadan, temel JS yetenekleri ve asenkron programlama ile geliştirilmiştir.
+* **API Güvenliği:** Hassas veri olan API anahtarları, .gitignore dosyası aracılığıyla saklanmış ve GitHub'a yüklenmesi engellenmiştir.
+* **Örnek Yapı:** Diğer geliştiricilerin projeyi ayağa kaldırabilmesi için config.example.js dosyası dökümante edilmiştir.
 
-Detaylı Film Modalları: Film kartlarına tıklandığında açılan pencerelerde film özeti, türler ve yayın yılı gibi detaylar sunulur.
+## 📅 Eklenecek Özellikler
+* **Duygu Analizli Eşleşme:** Kullanıcının o anki ruh haline göre özel algoritmik film önerileri.
+* **Gelişmiş Arama:** Film adına göre gerçek zamanlı arama motoru.
+* **Kullanıcı Listeleri:** Favori filmleri kaydetme ve kişisel izleme listeleri oluşturma.
 
-Video Entegrasyonu: YouTube API desteği ile film fragmanları doğrudan uygulama üzerinden izlenebilir.
-
-Kategori Filtreleme: Kullanıcılar ilgi duydukları türlere göre özel listelere ulaşabilir.
-
-Modern Kullanıcı Arayüzü : Tamamen responsive, karanlık mod temalı ve kullanıcı dostu bir arayüz.
-
-TEKNİK ALTYAPI VE GÜVENLİK
-
-Vanilla JavaScript: Framework kullanmadan, temel JS yetenekleri ve asenkron programlama ile geliştirilmiştir.
-
-API Güvenliği: Hassas veri olan API anahtarları, .gitignore dosyası aracılığıyla saklanmış ve GitHub'a yüklenmesi engellenmiştir.
-
-Örnek Yapı: Diğer geliştiricilerin projeyi ayağa kaldırabilmesi için config.example.js dosyası dökümante edilmiştir.
-
-EKLENECEK ÖZELLİKLER
-
-Duygu Analizli Eşleşme: Kullanıcının o anki ruh haline göre özel algoritmik film önerileri.
-
-Gelişmiş Arama: Film adına göre gerçek zamanlı arama motoru.
-
-Kullanıcı Listeleri: Favori filmleri kaydetme ve kişisel izleme listeleri oluşturma.
-
-KURULUM VE ÇALIŞTIRMA
-
+## Kurulum ve Çalıştırma
 Depoyu klonlayın.
 config.example.js dosyasının adını config.js olarak güncelleyin.
 Dosya içerisindeki API_KEY kısmına kendi TMDB anahtarınızı yapıştırın.
