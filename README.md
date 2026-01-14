@@ -4,7 +4,7 @@
 ## Proje Görselleri
 <p align="center">
   <b>Ana Vitrin ve Film Listeleri</b><br>
-  <img src="resimler/1.png" width="850">
+  <img src="resimler/Ana vitrin film kartı ve modal görünümü.png" width="850">
 </p>
 
 <p align="center">
