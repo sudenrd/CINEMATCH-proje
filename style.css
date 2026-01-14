@@ -1,4 +1,3 @@
-/* --- 1. TEMEL AYARLAR --- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&display=swap');
 
 html {
@@ -686,7 +685,6 @@ body {
 
 /* --- 11. MOBİL VE TABLET UYUMLULUK  --- */
 @media (max-width: 768px) {
-    /* FOOTER AYARLARI */
     .footer-content {
         grid-template-columns: 1fr 1fr; 
         gap: 40px 20px;
@@ -712,7 +710,6 @@ body {
         margin-right: 0;
     }
 
-    /* MODAL KARTI  */
     .modal-card {
         width: 90%;          
         height: auto;        
@@ -767,14 +764,13 @@ body {
         z-index: 100; 
     }
     
-    /* LOGIN  */
     .login-card {
         width: 90%;
         padding: 30px 20px;
     }
 }
-/* --- İLETİŞİM SAYFASI MASTER DÜZENLEMELER --- */
 
+/* --- 12. İLETİŞİM SAYFASI --- */
 .contact-page-body {
     background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
     min-height: 100vh;
@@ -793,16 +789,14 @@ body {
     z-index: 10;
 }
 
-/* Ritmik Logo Ayarı */
 .logo span { display: inline-block; background: linear-gradient(45deg, #ff5acd, #fb7299, #ffffff); -webkit-background-clip: text; color: transparent; }
 .logo span:nth-child(1), .logo span:nth-child(9) { transform: scaleY(1.32); }
 .logo span:nth-child(2), .logo span:nth-child(8) { transform: scaleY(1.24); }
 .logo span:nth-child(3), .logo span:nth-child(7) { transform: scaleY(1.12); }
 .logo span:nth-child(4), .logo span:nth-child(6) { transform: scaleY(1.05); }
 
-/* Başarı Mesajı Stili */
 .success-notification {
-    display: none; /* Başta gizli */
+    display: none; 
     margin-top: 25px;
     padding: 15px;
     background: rgba(46, 204, 113, 0.1);
@@ -819,7 +813,6 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Premium Kart ve Buton */
 .contact-card-premium {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
@@ -841,7 +834,6 @@ body {
     letter-spacing: 2px;
     cursor: pointer;
     transition: 0.3s;
-    /* Butonun gölgesini sabitledik, üst üste binme yapmaz */
     box-shadow: 0 10px 20px rgba(251, 114, 153, 0.2);
 }
 
@@ -860,26 +852,25 @@ body {
     align-items: center;
     gap: 8px;
 }
-/* --- MESAJ KUTUSU (TEXTAREA) BEYAZLIK DÜZELTME --- */
+
 .contact-form .input-group textarea {
-    background: rgba(255, 255, 255, 0.03) !important; /* Koyu/Şeffaf arka plan */
-    color: #fff !important; /* Beyaz yazı */
+    background: rgba(255, 255, 255, 0.03) !important; 
+    color: #fff !important; 
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 12px !important;
     padding: 15px !important;
     width: 100% !important;
     outline: none !important;
     transition: 0.3s !important;
-    font-family: inherit; /* Yazı tipi bozulmasın */
+    font-family: inherit;
 }
 
-/* Üstüne tıklayınca (Focus) */
+
 .contact-form .input-group textarea:focus {
     border-color: #fb7299 !important;
     background: rgba(251, 114, 153, 0.05) !important;
 }
 
-/* BAŞARI MESAJI (Gizli & Şık) */
 .success-notification {
     display: none; 
     margin-top: 20px;
@@ -899,7 +890,7 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- GENRE GRID (TÜR LİSTESİ) --- */
+/* --- 13. KATEGORİ SAYFASI --- */
 .genre-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
@@ -927,8 +918,8 @@ body {
     
 
     background-repeat: no-repeat;
-    background-position: center; /* Resmi tam ortalar */
-    background-size: cover;      /* RESMİ KESİN OLARAK KUTUYA TAM SIĞDIRIR, BOŞLUK BIRAKMAZ */
+    background-position: center; 
+    background-size: cover;    
 }
 
 .genre-card span {
@@ -947,20 +938,17 @@ body {
     box-shadow: 0 5px 10px rgba(251, 114, 153, 0.3);
 }
 
-/* genre.html'deki film listesi için özel düzenleme */
 #genre-movies-list {
     display: grid;
-    /* Her kart min 160px, max eldeki alanın payı kadar olsun */
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
-    gap: 40px 20px; /* Satır ve sütun boşluğu */
+    gap: 40px 20px; 
     padding: 20px 6%;
-    justify-items: center; /* Kartları kendi hücrelerinde ortalar */
+    justify-items: center; 
     align-items: start;
 }
 
-/* Kartların içindeki resimlerin ve yazıların bozulmaması için */
 #genre-movies-list .movie-card {
-    width: 160px; /* Sabit genişlik */
+    width: 160px; 
     height: auto;
     margin: 0; 
 }
@@ -971,7 +959,6 @@ body {
     object-fit: cover;
     border-radius: 12px;
 }
-
 
 .g-action { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/aksiyon.jpg'); }
 .g-adventure { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/macera.jpg'); }
@@ -992,7 +979,6 @@ body {
 .g-thriller { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/gerilim.jpg'); }
 .g-war { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/savas.jpg'); }
 .g-western { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/western.jpg'); }
-
 .g-anime { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/anime.jpg'); }
 .g-fight { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/dovus.jpg'); }
 .g-indie { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/bagimsiz.jpg'); }
@@ -1002,26 +988,23 @@ body {
 .g-food { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('resimler/yemek.jpg'); }
     
 
-
-/* genre.html içindeki ana kapsayıcı */
 .genre-movie-results {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Filmleri yatayda ortalar */
-    gap: 25px;               /* Kartlar arası boşluk */
-    max-width: 1400px;       /* Sayfanın çok fazla yayılmasını engeller */
-    margin: 0 auto;          /* Kapsayıcıyı sayfanın ortasına alır */
+    justify-content: center; 
+    gap: 25px;             
+    max-width: 1400px;     
+    margin: 0 auto;         
     padding: 20px;
 }
 
-/* Film başlıklarının daha kibar durması için */
 .movie-card p {
     font-size: 0.9rem;
     font-weight: 600;
     color: #ccc;
     margin-top: 10px;
     text-align: center;
-    max-width: 150px; /* Başlığın karttan taşmasını engeller */
+    max-width: 150px; 
 }
 
 #load-more-btn {
@@ -1034,7 +1017,7 @@ body {
     cursor: pointer;
     transition: 0.3s all;
     display: block;
-    margin: 50px auto; /* Ortalamak için */
+    margin: 50px auto;
     text-transform: uppercase;
     font-weight: 700;
 }
@@ -1043,11 +1026,6 @@ body {
     background: #fb7299;
     color: #fff;
     box-shadow: 0 0 15px rgba(251, 114, 153, 0.4);
-}
-
- 
-.g-horror { 
-    background-image: url('resimler/korku.jpg'); 
 }
 
 .section-title {
@@ -1064,10 +1042,8 @@ body {
     text-align: left; 
 }
 
-/* Detay Sayfası Genel */
 .detail-page { background-color: #000; overflow-x: hidden; }
 
-/* Arka Plan Çizgisini Yok Eden Efekt */
 .movie-backdrop {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100vh;
@@ -1091,7 +1067,6 @@ body {
     align-items: flex-start;
 }
 
-/* Poster Alanı */
 .poster-sidebar { flex: 0 0 300px; text-align: center; }
 .main-poster img {
     width: 100%;
@@ -1114,7 +1089,6 @@ body {
 }
 .trailer-btn-new:hover { background: #fb7299; box-shadow: 0 0 15px #fb7299; }
 
-/* Bilgi Alanı */
 .main-info-area { flex: 1; }
 .main-info-area h1 { font-size: 3.5rem; margin-bottom: 10px; }
 .info-meta { display: flex; gap: 20px; color: #ccc; margin-bottom: 20px; font-weight: 600; }
@@ -1130,7 +1104,6 @@ body {
 }
 .cast-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 5px; }
 
-/* Yorumlar Alanı */
 .bottom-comments { margin-top: 80px; }
 .section-divider { border: 0; border-top: 1px solid #222; margin-bottom: 40px; }
 .login-prompt { background: #111; padding: 30px; border-radius: 10px; text-align: center; border: 1px dashed #444; }
@@ -1141,13 +1114,12 @@ body {
     .info-meta, .genre-pills { justify-content: center; }
 }
 
-/* --- RİTMİK LOGO (Y Ekseninde Büyütme) --- */
 .logo {
     display: flex;
     align-items: center;
     cursor: pointer;
     font-weight: 900;
-    font-size: 2.2rem; /* Detay sayfasında bir tık kibar dursun diye 2.2 yaptık */
+    font-size: 2.2rem; 
     letter-spacing: -2px;
 }
 
@@ -1160,21 +1132,19 @@ body {
     transition: 0.3s;
 }
 
-/* Harflerin o meşhur Y ekseni ritmi */
 .logo span:nth-child(1), .logo span:nth-child(9) { transform: scaleY(1.32); }
 .logo span:nth-child(2), .logo span:nth-child(8) { transform: scaleY(1.24); }
 .logo span:nth-child(3), .logo span:nth-child(7) { transform: scaleY(1.12); }
 .logo span:nth-child(4), .logo span:nth-child(6) { transform: scaleY(1.05); }
 .logo span:nth-child(5) { transform: scaleY(1.0); }
 
-/* --- YORUM ALANI (KLAS TASARIM) --- */
+/* --- 14. YORUM ALANI  --- */
 .login-prompt {
-    background: rgba(255, 255, 255, 0.03); /* Çok hafif şeffaf beyaz */
-    backdrop-filter: blur(10px); /* Arkayı hafif bulanıklaştırır, çok klas durur */
+    background: rgba(255, 255, 255, 0.03); 
+    backdrop-filter: blur(10px); 
     padding: 40px;
     border-radius: 20px;
     text-align: center;
-    /* Çizik çizgiler gitti, yerine çok ince neon bir çerçeve geldi */
     border: 1px solid rgba(251, 114, 153, 0.2); 
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(251, 114, 153, 0.05);
     margin: 20px 0;
@@ -1186,7 +1156,6 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* "Oturum Açın" Linki */
 .login-prompt a {
     color: #fb7299 !important;
     text-decoration: none;
@@ -1198,7 +1167,6 @@ body {
     font-size: 0.9rem;
 }
 
-/* Altına şık bir çizgi efekti */
 .login-prompt a::after {
     content: '';
     position: absolute;
@@ -1219,10 +1187,8 @@ body {
     text-shadow: 0 0 15px #fb7299;
 }
 
-/* Henüz Yorum Yok Yazısı */
 #no-comment-msg {
     opacity: 0.6;
     font-style: italic;
     font-weight: 300;
-    letter-spacing: 1px;
 }
