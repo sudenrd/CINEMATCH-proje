@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body style="background:#000;">
+    
     <nav class="navbar">
         <div class="logo" onclick="location.href='index.html'">
             <span>C</span>
@@ -27,7 +28,7 @@
         <button id="load-more" class="login-submit-btn" style="width: 200px; margin: 40px auto; display: none;">Daha Fazla Yükle</button>
     </div>
 
-<div id="movieModal" class="modal-overlay">
+    <div id="movieModal" class="modal-overlay">
     <div class="modal-card" id="modal-card-container">
         <span class="close-btn" onclick="closeModal()">&times;</span>
         <div class="modal-content-wrapper">
@@ -37,7 +38,7 @@
                 <button id="stop-video-btn" onclick="stopVideo()">
                     <i class="fa-solid fa-arrow-left"></i> Geri Dön
                 </button>
-                </div>
+            </div>
             <div class="modal-info" id="modal-info-area">
                 <h2 id="m-title">FİLM BAŞLIĞI</h2>
                 <div class="modal-meta">
@@ -55,8 +56,9 @@
         </div>
     </div>
 </div>
-
 <div id="scroll-anchor" style="height: 50px;"></div>
+    <script src="config.js"></script> 
     <script src="genre.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
