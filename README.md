@@ -1,4 +1,5 @@
 CINEMATCH - FİLM KEŞİF PORTALI
+
 Cinematch, modern web teknolojileri kullanılarak geliştirilmiş, kullanıcıların güncel ve popüler filmleri interaktif bir şekilde keşfetmesini sağlayan bir platformdur. Ankara Üniversitesi Bilgisayar Mühendisliği bünyesinde yürütülen web geliştirme çalışmaları kapsamında tasarlanmıştır.
 
 MEVCUT ÖZELLİKLER
