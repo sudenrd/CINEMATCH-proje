@@ -51,14 +51,17 @@
 
     <script>
         document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault(); 
+            e.preventDefault(); // Sayfanın yenilenmesini engeller
             
             const msgBox = document.getElementById('success-msg');
             
+            // Mesajı göster
             msgBox.style.display = 'block';
-
+            
+            // Formu temizle
             this.reset();
-
+            
+            // 4 saniye sonra mesajı kapat
             setTimeout(() => {
                 msgBox.style.display = 'none';
             }, 4000);
