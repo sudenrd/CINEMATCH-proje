@@ -1,45 +1,45 @@
-# 🎬 CINEMATCH - Film Keşif Portalı
+# CINEMATCH - Film Keşif Portalı
 **Cinematch**, modern web teknolojileri kullanılarak geliştirilmiş, kullanıcıların güncel ve popüler filmleri interaktif bir şekilde keşfetmesini sağlayan bir platformdur. Ankara Üniversitesi Bilgisayar Mühendisliği bünyesinde yürütülen web geliştirme çalışmaları kapsamında tasarlanmıştır.
 
-## 🖼️ Proje Görselleri
+## Proje Görselleri
 <p align="center">
   <b>Ana Vitrin ve Film Listeleri</b><br>
-  <img src="ekran-goruntuleri/ana-vitrin.png" width="850" alt="Ana Vitrin">
+  <img src="resimler/1.png" width="850">
 </p>
 
 <p align="center">
   <b>Ana Vitrin Film Kartı ve Modal Görünümü</b><br>
-  <img src="ekran-goruntuleri/film-modal.png" width="850" alt="Film Kartı Modal">
+  <img src="resimler/2.png" width="850">
 </p>
 
 <p align="center">
   <b>Kategori Görünümü (Aksiyon)</b><br>
-  <img src="ekran-goruntuleri/kategori-gorunumu.png" width="850" alt="Kategori Görünümü">
+  <img src="resimler/3.png" width="850">
 </p>
 
 <p align="center">
   <b>Kategori Sayfası İçinde Yer Alan Film Detayları Görünümü</b><br>
-  <img src="ekran-goruntuleri/film-detaylari.png" width="850" alt="Film Detayları">
+  <img src="resimler/4.png" width="850">
 </p>
 
 <p align="center">
   <b>Kullanıcı Yorum Yapma Bölümü ve Kontrolleri</b><br>
-  <img src="ekran-goruntuleri/yorum-alani.png" width="850" alt="Yorum Bölümü">
+  <img src="resimler/5.png" width="850">
 </p>
 
-## 🚀 Mevcut Özellikler
+## Mevcut Özellikler
 * **Dinamik Film Akışı:** TMDB API entegrasyonu ile "En Yüksek Puanlılar", "Trendler" ve "Vizyondakiler" listeleri otomatik olarak güncellenir.
 * **Gelişmiş Modal Yapısı:** Film kartlarına tıklandığında açılan pencerelerde film özeti, türler ve yayın yılı gibi detaylar sunulur.
 * **Video ENtegrasyonu:** YouTube API desteği ile film fragmanları doğrudan uygulama üzerinden izlenebilir.
 * **Kategori Fİltreleme:** Kullanıcılar ilgi duydukları türlere göre özel listelere ulaşabilir.
 * **Kullanıcı Arayüzü:** Tamamen responsive, karanlık mod temalı ve kullanıcı dostu bir arayüz.
 
-## 🛠️ Teknik Altyapı ve Güvenlik
+## Teknik Altyapı ve Güvenlik
 * **Javascript:** Framework kullanmadan, temel JS yetenekleri ve asenkron programlama ile geliştirilmiştir.
 * **API Güvenliği:** Hassas veri olan API anahtarları, .gitignore dosyası aracılığıyla saklanmış ve GitHub'a yüklenmesi engellenmiştir.
 * **Örnek Yapı:** Diğer geliştiricilerin projeyi ayağa kaldırabilmesi için config.example.js dosyası dökümante edilmiştir.
 
-## 📅 Eklenecek Özellikler
+## Eklenecek Özellikler
 * **Duygu Analizli Eşleşme:** Kullanıcının o anki ruh haline göre özel algoritmik film önerileri.
 * **Gelişmiş Arama:** Film adına göre gerçek zamanlı arama motoru.
 * **Kullanıcı Listeleri:** Favori filmleri kaydetme ve kişisel izleme listeleri oluşturma.
