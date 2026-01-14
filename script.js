@@ -1,26 +1,76 @@
-const API_KEY = '6b2e0878e3637f364a6ad51a5292b0fc'; 
-const BASE_URL = 'https://api.themoviedb.org/3';
-const IMAGE_URL = 'https://image.tmdb.org/t/p/w500'; 
-const BACKDROP_URL = 'https://image.tmdb.org/t/p/original'; 
+const API_KEY = API_CONFIG.API_KEY; 
+const BASE_URL = API_CONFIG.BASE_URL; 
+const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
+const BACKDROP_URL = 'https://image.tmdb.org/t/p/original';
 
 const modal = document.getElementById('movieModal');
 const videoContainer = document.getElementById('video-container'); 
 const modalCard = document.getElementById('modal-card-container'); 
 
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Listeleri çek
     fetchMovies(`${BASE_URL}/movie/top_rated?api_key=${API_KEY}&language=tr-TR&page=1`, 'imdb-list', 50);
     fetchMovies(`${BASE_URL}/trending/movie/week?api_key=${API_KEY}&language=tr-TR`, 'trend-list', 20);
+    
     if(document.getElementById('upcoming-list')) {
         fetchMovies(`${BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=tr-TR&page=1`, 'upcoming-list', 10);
     }
 
-    // Modal Kapatma Olayları
-    window.onclick = (event) => {
-        if (event.target == modal) closeModal();
-        const loginModal = document.getElementById('loginModal');
-        if (loginModal && event.target == loginModal) loginModal.style.display = "none";
-    };
+
+    const loginModal = document.getElementById('loginModal');
+    const registerModal = document.getElementById('registerModal');
+    const forgotModal = document.getElementById('forgotPasswordModal');
+
+    const loginTrigger = document.getElementById('login-trigger');
+    const toRegisterBtn = document.querySelector('.signup-text a');
+    const toLoginBtn = document.getElementById('to-login');
+    const forgotLinks = document.querySelectorAll('.forgot-link, .footer-forgot-link');
+
+    if (loginTrigger) {
+        loginTrigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'flex';
+        });
+    }
+
+    if (toRegisterBtn) {
+        toRegisterBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'none';
+            registerModal.style.display = 'flex';
+        });
+    }
+
+    if (toLoginBtn) {
+        toLoginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.style.display = 'none';
+            loginModal.style.display = 'flex';
+        });
+    }
+
+    forgotLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'none';
+            forgotModal.style.display = 'flex';
+        });
+    });
+
+    document.querySelectorAll('.close-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const parentModal = btn.closest('.modal-overlay');
+            if(parentModal) parentModal.style.display = 'none';
+            if(parentModal.id === 'movieModal') stopVideo(); 
+        });
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target.classList.contains('modal-overlay')) {
+            event.target.style.display = 'none';
+            if(event.target.id === 'movieModal') stopVideo();
+        }
+    });
 });
 
 async function fetchMovies(url, containerId, movieCount) {
@@ -49,7 +99,6 @@ async function fetchMovies(url, containerId, movieCount) {
                 <img src="${IMAGE_URL + movie.poster_path}" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/200x300?text=Resim+Yok'">
             `;
 
-            // BURASI ESKİ HALİNE DÖNDÜ: Yeni sayfa yerine Modal açar
             card.addEventListener('click', () => openModal(movie.id));
 
             container.appendChild(card);
