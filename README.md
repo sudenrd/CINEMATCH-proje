@@ -2,6 +2,33 @@ CINEMATCH - FİLM KEŞİF PORTALI
 
 Cinematch, modern web teknolojileri kullanılarak geliştirilmiş, kullanıcıların güncel ve popüler filmleri interaktif bir şekilde keşfetmesini sağlayan bir platformdur. Ankara Üniversitesi Bilgisayar Mühendisliği bünyesinde yürütülen web geliştirme çalışmaları kapsamında tasarlanmıştır.
 
+## 🖼️ Proje Görselleri
+
+<p align="center">
+  <b>Ana Vitrin ve Film Listeleri</b><br>
+  <img src="ekran-goruntuleri/ana-vitrin.png" width="850" alt="Ana Vitrin">
+</p>
+
+<p align="center">
+  <b>Ana Vitrin Film Kartı ve Modal Görünümü</b><br>
+  <img src="ekran-goruntuleri/film-modal.png" width="850" alt="Film Kartı Modal">
+</p>
+
+<p align="center">
+  <b>Kategori Görünümü (Aksiyon)</b><br>
+  <img src="ekran-goruntuleri/kategori-gorunumu.png" width="850" alt="Kategori Görünümü">
+</p>
+
+<p align="center">
+  <b>Kategori Sayfası İçinde Yer Alan Film Detayları Görünümü</b><br>
+  <img src="ekran-goruntuleri/film-detaylari.png" width="850" alt="Film Detayları">
+</p>
+
+<p align="center">
+  <b>Kullanıcı Yorum Yapma Bölümü ve Kontrolleri</b><br>
+  <img src="ekran-goruntuleri/yorum-alani.png" width="850" alt="Yorum Bölümü">
+</p>
+
 MEVCUT ÖZELLİKLER
 
 Dinamik Film Listeleri: TMDB API entegrasyonu ile "En Yüksek Puanlılar", "Trendler" ve "Vizyondakiler" listeleri otomatik olarak güncellenir.
