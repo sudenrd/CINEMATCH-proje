@@ -1,5 +1,5 @@
-const API_KEY = '6b2e0878e3637f364a6ad51a5292b0fc';
-const BASE_URL = 'https://api.themoviedb.org/3';
+const API_KEY = API_CONFIG.API_KEY; 
+const BASE_URL = API_CONFIG.BASE_URL
 const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
 
 let currentPage = 1;
@@ -31,6 +31,7 @@ async function fetchContent() {
     let lang = "tr-TR";
     let minVote = 500; 
     let sortBy = "vote_average.desc";
+
 
     let endpoint = `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=${lang}&page=${currentPage}&sort_by=${sortBy}&vote_count.gte=${minVote}`;
     
