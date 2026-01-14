@@ -5,9 +5,13 @@ Cinematch, modern web teknolojileri kullanılarak geliştirilmiş, kullanıcıla
 MEVCUT ÖZELLİKLER
 
 Dinamik Film Listeleri: TMDB API entegrasyonu ile "En Yüksek Puanlılar", "Trendler" ve "Vizyondakiler" listeleri otomatik olarak güncellenir.
+
 Detaylı Film Modalları: Film kartlarına tıklandığında açılan pencerelerde film özeti, türler ve yayın yılı gibi detaylar sunulur.
+
 Video Entegrasyonu: YouTube API desteği ile film fragmanları doğrudan uygulama üzerinden izlenebilir.
+
 Kategori Filtreleme: Kullanıcılar ilgi duydukları türlere göre özel listelere ulaşabilir.
+
 Modern Kullanıcı Arayüzü : Tamamen responsive, karanlık mod temalı ve kullanıcı dostu bir arayüz.
 
 TEKNİK ALTYAPI VE GÜVENLİK
