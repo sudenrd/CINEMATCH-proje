@@ -56,5 +56,3 @@ config.example.js dosyasının adını config.js olarak güncelleyin.
 Dosya içerisindeki API_KEY kısmına kendi TMDB anahtarınızı yapıştırın.
 index.html dosyasını tarayıcınızda açın.
 
-## Video Anlatım Linki
-https://drive.google.com/file/d/1ESlWIqWJOFAu_3ai6CM-7wjpKMH09APj/view?usp=drive_link
