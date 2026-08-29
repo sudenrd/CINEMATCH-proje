@@ -1,6 +1,5 @@
 # Local config and secrets
 static/config.js
-static/resimler
 .env
 .env.*
 !.env.example
