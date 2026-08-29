@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINEMATCH</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <span>C</span>
+            <span>I</span>
+            <span>N</span>
+            <span>E</span>
+            <span>M</span>
+            <span>A</span>
+            <span>T</span>
+            <span>C</span>
+            <span>H</span>
+        </div>
+        <div class="menu-links">
+            <a href="#" id="guest-search-trigger"><i class="fa-solid fa-magnifying-glass"></i> Ara</a>
+            <a href="#feature-grid">Biz Kimiz?</a>
+            {% if viewer %}
+            <a href="{{ url_for('kategoriler') }}">Kategoriler</a>
+            <a href="{{ url_for('profil_sayfasi', isim=viewer.username) }}">Profilim</a>
+            <a href="{{ url_for('logout') }}" class="nav-btn">Çıkış Yap</a>
+            {% else %}
+            <a href="#" class="nav-btn" id="login-trigger">Oturum Aç</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Don't just watch, meet your match</h1>
+            <p>Saatlerce arama çubuğunda ne izlesem diyerek yemeğini soğutma. Anlık modunla uyuşan o filmi biz çoktan bulduk.</p>
+        </div>
+
+        <a href="#feature-grid" class="scroll-down">
+            <i class="fa-solid fa-chevron-down"></i>
+        </a>
+    </section>
+
+    <section id="feature-grid" class="features">
+        <div class="feature-grid">
+            <div class="feature-box">
+                <div class="box-icon">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <h3>Duygu Analizi</h3>
+                <p>Algoritmamız "Komedi" gibi yüzeysel türlerin ötesine geçer. "Ghosting Blues" veya "Varoluşsal Sancı" gibi spesifik modlarını dahi analiz edip o anki ruh haline kilitlenen yapımı bulur.</p>
+            </div>
+
+            <div class="feature-box">
+                <div class="box-icon">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <h3>Sıfır Arama, Tam İsabet</h3>
+                <p>Kararsızlık anlarını tarihe göm. Ne izlesem stresi yaşamadan, birkaç dakikalık analiz ile o mükemmel eşleşmeyi anında yakalaa.</p>
+            </div>
+
+            <div class="feature-box">
+                <div class="box-icon">
+                    <i class="fa-solid fa-comments"></i>
+                </div>
+                <h3>Söz Sende</h3>
+                <p>Sadece izleyici kalma, filmlere puan ver, diğer kullanıcıların yorumlarını gör, en iyi eleştirmen sen ol. Ayrıca sevdiğin filmleri oluşturacağın özel listene ekleyerek arkadaşlarınla paylaş.</p>
+            </div>
+
+            <div class="feature-box">
+                <div class="box-icon">
+                    <i class="fa-solid fa-satellite-dish"></i>
+                </div>
+                <h3>Radar Dışı Keşifler</h3>
+                <p>Popüler listelerin ve şişirilmiş puanların tuzağından kurtul. Algoritmamızın, ana akım radarına yakalanmamış ve sadece senin zevkine uyan underrated cevherleri bulmasına izin ver.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="movie-section">
+        <h2 class="section-title">IMDb'ye Göre En İyi Filmler</h2>
+        <div class="movie-slider" id="imdb-list"></div>
+        <h2 class="section-title">Gündemdeki Filmler</h2>
+        <div class="movie-slider" id="trend-list"></div>
+        <h2 class="section-title">Yakında Vizyonda</h2>
+        <div class="movie-slider" id="upcoming-list"></div>
+    </section>
+
+
+    <div id="movieModal" class="modal-overlay">
+        <div class="modal-card" id="modal-card-container">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            
+            <div class="modal-content-wrapper">
+                
+                <div class="modal-poster">
+                    <img id="m-img" src="" alt="Film Afişi">
+                    
+                    <div id="video-container"></div>
+
+                    <button id="stop-video-btn" onclick="stopVideo()">
+                        <i class="fa-solid fa-arrow-left"></i> Geri Dön
+                    </button>
+                </div>
+
+                <div class="modal-info" id="modal-info-area">
+                    <h2 id="m-title">FİLM BAŞLIĞI</h2>
+                    
+                    <div class="modal-meta">
+                        <span class ="genres" id="m-genres">Türler</span>
+                        <span id="m-year">yil</span>
+                        <span id="m-age" class="age-limit"></span>
+                    </div>
+
+                    <p id="m-desc">Film açıklaması</p>
+
+                    <div class="modal-buttons">
+                        <button id="m-trailer" class="play-btn">
+                            <i class="fa-solid fa-play"></i> Fragmanı İzle
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="guestSearchModal" class="modal-overlay">
+        <div class="modal-content search-modal guest-search-modal">
+            <span class="close-btn" id="close-guest-search">&times;</span>
+            <h2>Film Ara</h2>
+            <input type="text" id="guestSearchInput" placeholder="Bir film adı yaz..." autocomplete="off">
+            <div id="guestSearchResults" class="search-results-container"></div>
+        </div>
+    </div>
+
+<section class="genre-section">
+    <h2 class="section-title">Moduna Göre Keşfet</h2>
+
+    <div class="genre-grid">
+
+        <!-- GENRES -->
+        <h3 class="genre-group-title">Temel Türler</h3>
+
+        <a href="{{ url_for('kategoriler', id='aksiyon', name='Aksiyon') }}" class="genre-card g-action">
+            <span>Aksiyon</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='macera', name='Macera') }}" class="genre-card g-adventure">
+            <span>Macera</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='animasyon', name='Animasyon') }}" class="genre-card g-animation">
+            <span>Animasyon</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='komedi', name='Komedi') }}" class="genre-card g-comedy">
+            <span>Komedi</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='suc', name='Suç') }}" class="genre-card g-crime">
+            <span>Suç</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='polisiye', name='Polisiye') }}" class="genre-card g-police">
+            <span>Polisiye</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='belgesel', name='Belgesel') }}" class="genre-card g-doc">
+            <span>Belgesel</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='dram', name='Dram') }}" class="genre-card g-drama">
+            <span>Dram</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='aile', name='Aile') }}" class="genre-card g-family">
+            <span>Aile</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='fantastik', name='Fantastik') }}" class="genre-card g-fantasy">
+            <span>Fantastik</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='tarih', name='Tarih') }}" class="genre-card g-history">
+            <span>Tarih</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='korku', name='Korku') }}" class="genre-card g-horror">
+            <span>Korku</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='muzik', name='Müzik') }}" class="genre-card g-music">
+            <span>Müzik</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='gizem', name='Gizem') }}" class="genre-card g-mystery">
+            <span>Gizem</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='romantik', name='Romantik') }}" class="genre-card g-romance">
+            <span>Romantik</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='bilim_kurgu', name='Bilim Kurgu') }}" class="genre-card g-scifi">
+            <span>Bilim Kurgu</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='gerilim', name='Gerilim') }}" class="genre-card g-thriller">
+            <span>Gerilim</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='savas', name='Savaş') }}" class="genre-card g-war">
+            <span>Savaş</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='vahsi_bati', name='Vahşi Batı') }}" class="genre-card g-western">
+            <span>Vahşi Batı</span>
+        </a>
+
+
+
+        <!-- THEMES -->
+        <h3 class="genre-group-title">Hikaye Temaları</h3>
+
+        <a href="{{ url_for('kategoriler', id='uzay', name='Uzay') }}" class="genre-card g-space">
+            <span>Uzay</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='zaman_yolculugu', name='Zaman Yolculuğu') }}" class="genre-card g-time-travel">
+            <span>Zaman Yolculuğu</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='soygun', name='Soygun') }}" class="genre-card g-heist">
+            <span>Soygun</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='psikolojik', name='Psikolojik') }}" class="genre-card g-psychological">
+            <span>Psikolojik</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='distopya', name='Distopya') }}" class="genre-card g-dystopia">
+            <span>Distopya</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='mafya', name='Mafya') }}" class="genre-card g-mafia">
+            <span>Mafya</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='hacker', name='Dijital Kaos') }}" class="genre-card g-hacker">
+            <span>Dijital Kaos</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='hayatta_kalma', name='Hayatta Kalma') }}" class="genre-card g-survival">
+            <span>Hayatta Kalma</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='seri_katil', name='Seri Katil') }}" class="genre-card g-serial">
+            <span>Seri Katil</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='yapay_zeka', name='Yapay Zeka') }}" class="genre-card g-ai">
+            <span>Yapay Zeka</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='post_apocalyptic', name='Post Apokaliptik') }}" class="genre-card g-post">
+            <span>Post Apokaliptik</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='cyberpunk', name='Cyberpunk') }}" class="genre-card g-cyberpunk">
+            <span>Cyberpunk</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='intikam', name='İntikam') }}" class="genre-card g-revenge">
+            <span>İntikam</span>
+        </a>
+
+
+
+        <!-- STYLE / MOOD -->
+        <h3 class="genre-group-title">Mod ve Stil</h3>
+
+        <a href="{{ url_for('kategoriler', id='anime', name='Anime') }}" class="genre-card g-anime">
+            <span>Anime</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='bagimsiz', name='Bağımsız') }}" class="genre-card g-indie">
+            <span>Bağımsız</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='kult', name='Kült') }}" class="genre-card g-cult">
+            <span>Kült</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='ters_kose', name='Ters Köşe') }}" class="genre-card g-opposite">
+            <span>Ters Köşe</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='cerezlik', name='Çerezlik') }}" class="genre-card g-short">
+            <span>Çerezlik</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='uzun_basyapit', name='Uzun Başyapıt') }}" class="genre-card g-long">
+            <span>Uzun Başyapıt</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='slowburn', name='Düşük Tempolu') }}" class="genre-card g-slowburn">
+            <span>Düşük Tempolu</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='beyin_yakan', name='Beyin Yakan') }}" class="genre-card g-mind">
+            <span>Beyin Yakan</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='cozy', name='İç Isıtan') }}" class="genre-card g-cozy">
+            <span>İç Isıtan</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='karanlik', name='Karanlık') }}" class="genre-card g-dark">
+            <span>Karanlık</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='depresif', name='Depresif') }}" class="genre-card g-depressive">
+            <span>Depresif</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='ilham_veren', name='İlham Veren') }}" class="genre-card g-inspiring">
+            <span>İlham Veren</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='arthouse', name='Sanat Filmi') }}" class="genre-card g-arthouse">
+            <span>Sanat Filmi</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='deneysel', name='Alışılmışın Dışında') }}" class="genre-card g-experimental">
+            <span>Alışılmışın Dışında</span>
+        </a>
+
+
+
+        <!-- CHARACTER -->
+        <h3 class="genre-group-title">Karakter Odağı</h3>
+
+        <a href="{{ url_for('kategoriler', id='antihero', name='Kusurlu Kahraman') }}" class="genre-card g-antihero">
+            <span>Kusurlu Kahraman</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='coming_of_age', name='Kendini Bulma') }}" class="genre-card g-coming">
+            <span>Kendini Bulma</span>
+        </a>
+
+
+
+        <!-- REGIONS -->
+        <h3 class="genre-group-title">Dünya Sineması</h3>
+
+        <a href="{{ url_for('kategoriler', id='tr', name='Türk Sineması') }}" class="genre-card g-turkish">
+            <span>Türk</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='yesilcam', name='Yeşilçam Filmleri') }}" class="genre-card g-yesilcam">
+            <span>Yeşilçam</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='ko', name='Kore Sineması') }}" class="genre-card g-korean">
+            <span>Kore</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='fa', name='İran Sineması') }}" class="genre-card g-iranian">
+            <span>İran</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='iskandinav', name='İskandinav Sineması') }}" class="genre-card g-scandinavian">
+            <span>İskandinav</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='japon', name='Japon Sineması') }}" class="genre-card g-japanese">
+            <span>Japon</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='fransiz', name='Fransız Sineması') }}" class="genre-card g-french">
+            <span>Fransız</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='italyan', name='İtalyan Sineması') }}" class="genre-card g-italian">
+            <span>İtalyan</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='hint', name='Hint Sineması') }}" class="genre-card g-indian">
+            <span>Hint</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='ispanyol', name='İspanyol Sineması') }}" class="genre-card g-spanish">
+            <span>İspanyol</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='alman', name='Alman Sineması') }}" class="genre-card g-german">
+            <span>Alman</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='cin', name='Çin Sineması') }}" class="genre-card g-chinese">
+            <span>Çin</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='hong_kong', name='Hong Kong Sineması') }}" class="genre-card g-hongkong">
+            <span>Hong Kong</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='latin_amerika', name='Latin Amerika Sineması') }}" class="genre-card g-latin">
+            <span>Latin Amerika</span>
+        </a>
+
+
+
+        <!-- SPECIAL -->
+        <h3 class="genre-group-title">Özel Seçkiler</h3>
+
+        <a href="{{ url_for('kategoriler', id='romantik_komedi', name='Romantik Komedi') }}" class="genre-card g-romcom">
+            <span>Romantik Komedi</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='edebi_uyarlama', name='Edebi Uyarlama') }}" class="genre-card g-literary">
+            <span>Edebi Uyarlama</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='oscar_secisi', name='Oscar Ödüllü') }}" class="genre-card g-awards">
+            <span>Oscar Ödüllü</span>
+        </a>
+
+        <a href="{{ url_for('kategoriler', id='festival_odullu', name='Festival Ödüllü') }}" class="genre-card g-festival">
+            <span>Festival Ödüllü</span>
+        </a>
+
+    </div>
+</section>
+
+    <footer class="corporate-footer">
+        <div class = "footer-wrapper">
+            <div class="footer-content">
+            
+            <div class="footer-column">
+                <h4>KEŞFET</h4>
+                <a href="#feature-grid">Biz Kimiz?</a>
+                <a href="#imdb-list">En İyiler</a>
+                <a href="#trend-list">Gündemdekiler</a>
+                <a href="#upcoming-list">Yakında Vizyonda</a>
+            </div>
+
+            <div class="footer-column">
+                <h4>YARDIM</h4>
+                <a href="#" class="footer-login-link">Hesabım</a>
+                <a href="#">Sıkça Sorulan Sorular</a>
+                <a href="{{ url_for('iletisim') }}">İletişim</a>
+                <a href="#" class="footer-forgot-link">Şifre Sıfırlama</a>
+            </div>
+
+            <div class="footer-column">
+                <h4>YASAL</h4>
+                <a href="#">Gizlilik Politikası</a>
+                <a href="#">Çerez Tercihleri</a>
+                <a href="#">Kullanım Koşulları</a>
+                <a href="#">KVKK Aydınlatma Metni</a>
+            </div>
+
+        </div>
+    </div>
+        
+
+        <div class="footer-bottom">
+            <div class="footer-brand">CINEMATCH</div>
+            <p class="copyright">© 2026 Cinematch. Tüm hakları saklıdır.</p>
+            
+            <div class="footer-socials">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="loginModal" class="modal-overlay">
+        <div class="login-card">
+            <span class="close-btn login-close">&times;</span>
+            
+            <div class="login-header">
+                <div class="logo" style=" font-size: 1.5rem;">CINEMATCH</div>
+                <h2>Hoş Geldin!</h2>
+                <p>Kaldığın yerden devam et. </p>
+                <p class="signup-text">
+                    Hesabın yok mu? <a href="#">Hemen Kayıt Ol</a>
+                </p>
+            </div>
+
+            <form class="login-form" action="/login" method="POST">
+                <div class="input-group">
+                    <input type="email" name="email" required placeholder=" ">
+                    <label>E-posta Adresi</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" name="password" required placeholder=" ">
+                    <label>Şifre</label>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox"> Beni Hatırla
+                    </label>
+                    <a href="#" class="forgot-link">Şifremi Unuttum</a>
+                </div>
+
+                <button type="submit" class="login-submit-btn">Giriş Yap</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal-overlay">
+    <div class="login-card">
+        <span class="close-btn register-close">&times;</span>
+        <div class="login-header">
+            <div class="logo" style="font-size: 1.5rem;">CINEMATCH</div>
+            <h2>Kayıt Ol</h2>
+            <p>Filmlerle dolu bir dünyaya adım at!</p>
+        </div>
+        <form class="login-form" action="{{ url_for('kayit_ol') }}" method="POST">
+            <div class="input-group">
+                <input type="text" name="username" required maxlength="50" pattern="\S+" title="Kullanıcı adı boşluk içeremez." placeholder=" "> 
+                <label>Kullanıcı Adı (Boşluksuz)</label>
+            </div>
+            <div class="input-group">
+                <input type="email" name="email" required placeholder=" "> 
+                <label>E-posta Adresi</label>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" required placeholder=" "> 
+                <label>Şifre</label>
+            </div>
+            <button type="submit" class="login-submit-btn">Kayıt Ol</button>
+        </form>
+        <p class="signup-text" style="margin-top: 20px;">
+            Zaten hesabın var mı? <a href="#" id="to-login">Giriş Yap</a>
+        </p>
+    </div>
+</div>
+
+<div id="forgotPasswordModal" class="modal-overlay">
+    <div class="login-card">
+        <span class="close-btn forgot-close">&times;</span>
+        <div class="login-header">
+            <div class="logo" style="font-size: 1.5rem;">CINEMATCH</div>
+            <h2>Şifre Sıfırlama</h2>
+            <p>E-posta adresini gir, sana bir bağlantı gönderelim.</p>
+        </div>
+        <form class="login-form">
+            <div class="input-group">
+                <input type="email" required placeholder=" ">
+                <label>E-posta Adresi</label>
+            </div>
+            <button type="submit" class="login-submit-btn">Sıfırlama Bağlantısı Gönder</button>
+        </form>
+    </div>
+</div>
+    <script src="{{ url_for('static', filename='config.js') }}"></script> 
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body> 
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div id="flash-message" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; background-color: #72151a; color: white; padding: 8px 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-weight: bold; text-align: center; font-size: 1.1rem;">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+    
+    <script>
+      setTimeout(function() {
+          var flash = document.getElementById('flash-message');
+          if(flash) {
+              flash.style.display = 'none';
+          }
+      }, 2000); 
+    </script>
+  {% endif %}
+{% endwith %}
+</html>

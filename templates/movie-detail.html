@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINEMATCH - Film Detayları</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script defer src="{{ url_for('static', filename='config.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='movie-detail.js') }}"></script>
+</head>
+<body class="detail-page">
+
+    <nav class="navbar">
+        <div class="logo" onclick="location.href='{{ url_for('ana_sayfa') }}'" style="cursor: pointer;">
+            <span>C</span>
+            <span>I</span>
+            <span>N</span>
+            <span>E</span>
+            <span>M</span>
+            <span>A</span>
+            <span>T</span>
+            <span>C</span>
+            <span>H</span>
+        </div>
+    </nav>
+
+    <div class="movie-backdrop" id="movie-backdrop"></div>
+
+    <main class="detail-container">
+        <div class="detail-content-wrapper">
+            
+            <div class="poster-sidebar">
+                <div class="main-poster">
+                    <img id="d-poster" src="" alt="Film Afişi">
+                </div>
+                <button id="d-trailer-btn" class="trailer-btn-new">
+                    <i class="fa-solid fa-play"></i> Fragmanı İzle
+                </button>
+            </div>
+
+            <div class="main-info-area">
+                <h1 id="d-title">Yükleniyor...</h1>
+                
+                <div class="info-meta">
+                    <span id="d-year"></span>
+                    <span id="d-rating"></span>
+                    <span id="d-runtime"></span>
+                </div>
+
+                <div class="genre-pills" id="d-genres"></div>
+
+                <div class="description-section">
+                    <h3>Özet</h3>
+                    <p id="d-overview"></p>
+                </div>
+
+                <div class="cast-section">
+                    <h3>Oyuncular</h3>
+                    <div class="cast-grid" id="d-cast"></div>
+                </div>
+            </div>
+        </div>
+
+        <section class="bottom-comments">
+            <hr class="section-divider">
+            <div class="discussion-heading">
+                <div>
+                    <p class="discussion-kicker">Topluluk</p>
+                    <h3>Yorumlar ve İncelemeler</h3>
+                </div>
+                <div class="discussion-tabs">
+                    <button class="discussion-tab active" data-panel="comments-panel" type="button">
+                        <i class="fa-regular fa-comments"></i> Yorumlar
+                    </button>
+                    <button class="discussion-tab" data-panel="reviews-panel" type="button">
+                        <i class="fa-solid fa-star-half-stroke"></i> İncelemeler
+                    </button>
+                </div>
+            </div>
+            <div id="comments-panel" class="discussion-panel active">
+            <h3>Kullanıcı Yorumları</h3>
+            <div id="comment-form-area"></div>
+            <div id="comments-list"></div>
+            </div>
+
+            <div id="reviews-panel" class="discussion-panel">
+                <div id="review-form-area"></div>
+                <div id="reviews-list"></div>
+            </div>
+        </section>
+    </main>
+<div id="loginModal" class="modal-overlay">
+    <div class="login-card">
+        
+        <span class="close-btn login-close" onclick="closeLoginModal()">&times;</span>
+        <div class="login-header">
+            <div class="logo" style="font-size: 1.5rem;">CINEMATCH</div>
+            <h2>Hoş Geldin!</h2>
+            <p>Yorum yapmak için giriş yapmalısın.</p>
+        </div>
+        <form class="login-form" action="{{ url_for('giris_yap') }}?next={{ request.full_path | urlencode }}" method="POST">
+            <div class="input-group">
+                <input type="email" name="email" required placeholder=" ">
+                <label>E-posta Adresi</label>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" required placeholder=" ">
+                <label>Şifre</label>
+            </div>
+            <button type="submit" class="login-submit-btn">Giriş Yap</button>
+        </form>
+    </div>
+</div>
+
+<div id="actorModal" class="modal-overlay actor-modal-overlay" style="display: none;">
+    <div class="actor-modal-card">
+        <span class="close-btn" id="close-actor-modal">&times;</span>
+        <div class="actor-modal-grid">
+            <div class="actor-photo-wrap">
+                <img id="actor-photo" src="" alt="Oyuncu fotoğrafı">
+            </div>
+            <div class="actor-info-wrap">
+                <p class="actor-kicker">Oyuncu</p>
+                <h2 id="actor-name">Yükleniyor...</h2>
+                <p id="actor-meta" class="actor-meta"></p>
+                <p id="actor-bio" class="actor-bio"></p>
+            </div>
+        </div>
+        <h3 class="actor-film-title">Oynadığı Diğer Filmler</h3>
+        <div id="actor-movies" class="actor-movies-grid"></div>
+    </div>
+</div>
+</body>
+</html>

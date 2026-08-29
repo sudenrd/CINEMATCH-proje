@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinematch - Ana Sayfa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+</head>
+<body class="discover-page">
+    <nav class="cinematch-navbar">
+        <div class="nav-logo" onclick="location.href='{{ url_for('kesfet') }}'">
+            <span>C</span><span>I</span><span>N</span><span>E</span><span>M</span><span>A</span><span>T</span><span>C</span><span>H</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('kesfet') }}">Ana Sayfa</a></li>
+            <li><a href="{{ url_for('mood_gecmisim') }}">Mood Geçmişim</a></li>
+        </ul>
+        <div class="nav-user">
+            <a href="{{ url_for('profil_sayfasi', isim=viewer.username) }}" class="nav-logout"><i class="fa-solid fa-user"></i> Profilim</a>
+        </div>
+    </nav>
+
+    <main class="discover-shell">
+        <section class="discover-hero compact-discover-hero">
+            <div>
+                <span class="discover-kicker">Ana Sayfa</span>
+                <h1>Keşfet, ara, sonra listene ekle.</h1>
+                <p>Kategoriler aşağıda tam liste halinde. Aklında belirli bir film varsa buradan direkt detayına gidebilirsin.</p>
+            </div>
+        </section>
+
+        <section class="discover-search-panel">
+            <div class="section-header">
+                <div class="section-title">
+                    <h2>Film Ara</h2>
+                    <span class="count">Popüler sonuçlar önce gelir</span>
+                </div>
+            </div>
+            <div class="discover-search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="discoverMovieSearchInput" placeholder="Bir film adı yaz..." autocomplete="off">
+            </div>
+            <div id="discoverMovieSearchResults" class="discover-search-results">
+                <div class="discover-empty-line">Film adı yazınca en popüler eşleşmeleri burada sıralayacağım.</div>
+            </div>
+        </section>
+
+        <section class="discover-categories">
+            <div class="section-header">
+                <div class="section-title">
+                    <h2>Tüm Kategoriler</h2>
+                    <span class="count">Indexteki seçkilerin tamamı</span>
+                </div>
+            </div>
+            <div class="discover-category-grid full-category-grid">
+                {% for group in category_groups %}
+                <h3 class="discover-category-group-title">{{ group.title }}</h3>
+                    {% for category in group['items'] %}
+                    <a href="{{ url_for('kategoriler', id=category['id'], name=category['name']) }}" class="discover-category-card {{ category_classes.get(category['id'], '') }}">
+                        <span>{{ category['name'] }}</span>
+                    </a>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="discover-movie-rails">
+            <div class="section-header">
+                <div class="section-title">
+                    <h2>Film Rafları</h2>
+                </div>
+            </div>
+
+            <div class="discover-rail-block">
+                <h3>Popüler Filmler</h3>
+                <div class="discover-poster-row" id="discoverPopularMovies"></div>
+            </div>
+            <div class="discover-rail-block">
+                <h3>Gündemde</h3>
+                <div class="discover-poster-row" id="discoverTrendingMovies"></div>
+            </div>
+            <div class="discover-rail-block">
+                <h3>Yakında Vizyonda</h3>
+                <div class="discover-poster-row" id="discoverUpcomingMovies"></div>
+            </div>
+        </section>
+
+        <section class="discover-feed-layout">
+            <div class="discover-feed-main">
+                <section class="discover-feed-section">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <h2>Son Hareketler</h2>
+                            <span class="count">{% if followed_reviews %}Takip ettiklerinden{% else %}Topluluktan seçmeler{% endif %}</span>
+                        </div>
+                    </div>
+
+                    {% set feed_reviews = followed_reviews if followed_reviews else recent_reviews %}
+                    {% if feed_reviews %}
+                    <div class="discover-review-list">
+                        {% for review in feed_reviews %}
+                        <article class="discover-review-card">
+                            <div class="discover-review-author">
+                                <a href="{{ review.profile_url }}" class="discover-avatar">
+                                    {% if review.avatar_path %}
+                                    <img src="{{ url_for('static', filename=review.avatar_path) }}" alt="{{ review.username }}">
+                                    {% else %}
+                                    <i class="fa-solid fa-user"></i>
+                                    {% endif %}
+                                </a>
+                                <div>
+                                    <a href="{{ review.profile_url }}">{{ review.username }}</a>
+                                    <span>{{ review.created_label }}</span>
+                                </div>
+                            </div>
+                            <a href="/detay?id={{ review.movie_id }}" class="discover-review-movie">
+                                <img src="{% if review.poster %}https://image.tmdb.org/t/p/w500{{ review.poster }}{% else %}https://via.placeholder.com/96x144?text=Yok{% endif %}" alt="{{ review.movie_title }}">
+                                <div>
+                                    <strong>{{ review.movie_title }}</strong>
+                                    <span><i class="fa-solid fa-star"></i> {{ review.rating }}/5</span>
+                                </div>
+                            </a>
+                            <p>{{ review.content[:220] }}{% if review.content|length > 220 %}...{% endif %}</p>
+                            <div class="discover-card-meta">
+                                <span><i class="fa-solid fa-heart"></i> {{ review.like_count }}</span>
+                                <span><i class="fa-regular fa-comment"></i> {{ review.reply_count }}</span>
+                                <a href="/detay?id={{ review.movie_id }}">İncelemeye Git</a>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="discover-empty-line">Henüz hareket yok. İncelemeler gelince burası canlanacak.</div>
+                    {% endif %}
+                </section>
+
+                <section class="discover-feed-section">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <h2>Son Yorumlar</h2>
+                            <span class="count">Kısa notlar</span>
+                        </div>
+                    </div>
+                    {% if recent_comments %}
+                    <div class="discover-comment-list">
+                        {% for comment in recent_comments %}
+                        <article class="discover-comment-card">
+                            <a href="{{ comment.profile_url }}" class="discover-avatar">
+                                {% if comment.avatar_path %}
+                                <img src="{{ url_for('static', filename=comment.avatar_path) }}" alt="{{ comment.username }}">
+                                {% else %}
+                                <i class="fa-solid fa-user"></i>
+                                {% endif %}
+                            </a>
+                            <div>
+                                <p><a href="{{ comment.profile_url }}">{{ comment.username }}</a> {{ comment.content[:180] }}{% if comment.content|length > 180 %}...{% endif %}</p>
+                                <span>{{ comment.created_label }} · <a href="{{ url_for('film_detay', id=comment.movie_id) }}">Filmi Aç</a></span>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="discover-empty-line">Henüz yorum yok. İlk kısa notlar film detay sayfalarından gelecek.</div>
+                    {% endif %}
+                </section>
+            </div>
+
+            <aside class="discover-side-rail">
+                <div class="section-title">
+                    <h2>Popüler İncelemeler</h2>
+                    <span class="count">En çok tepki alanlar</span>
+                </div>
+                {% if popular_reviews %}
+                <div class="popular-review-list">
+                    {% for review in popular_reviews %}
+                    <a href="/detay?id={{ review.movie_id }}" class="popular-review-item">
+                        <img src="{% if review.poster %}https://image.tmdb.org/t/p/w500{{ review.poster }}{% else %}https://via.placeholder.com/70x105?text=Yok{% endif %}" alt="{{ review.movie_title }}">
+                        <span>
+                            <strong>{{ review.movie_title }}</strong>
+                            <small>{{ review.username }} · {{ review.like_count }} beğeni</small>
+                        </span>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="discover-empty-line">Popüler inceleme için biraz daha etkileşim lazım.</div>
+                {% endif %}
+            </aside>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='config.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinematch - Profil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+</head>
+<body class="{% if not own_profile %}profile-public{% endif %}"{% if user and user.backdrop_path %} style="--profile-backdrop: url('https://image.tmdb.org/t/p/original{{ user.backdrop_path }}');"{% endif %}>
+    <div class="profile-backdrop-layer"></div>
+    <nav class="cinematch-navbar">
+        <div class="nav-logo">
+            <span>C</span>
+            <span>I</span>
+            <span>N</span>
+            <span>E</span>
+            <span>M</span>
+            <span>A</span>
+            <span>T</span>
+            <span>C</span>
+            <span>H</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('kesfet') }}">Ana Sayfa</a></li>
+            <li><a href="{{ url_for('mood_gecmisim') }}">Mood Geçmişim</a></li>
+            <li><a href="#" id="nav-search-btn"><i class="fa-solid fa-magnifying-glass"></i></a></li>
+        </ul>
+        <div class="nav-user">
+            <a href="{{ url_for('logout') }}" class="nav-logout"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+        </div>
+    </nav>
+
+    <div class ="profile-layout">
+
+        <header class ="profile-header">
+            <div class ="profile-info">
+                <div class ="avatar">
+                    {% if user and user.avatar_path %}
+                    <img src="{{ url_for('static', filename=user.avatar_path) }}" alt="{{ isim }} profil fotoğrafı">
+                    {% else %}
+                    <i class="fa-solid fa-user"></i>
+                    {% endif %}
+                </div>
+                <div class="profile-mini-social">
+                    <button class="mini-social-btn" data-social-panel="followers-panel" type="button">
+                        <strong id="followers-count">{{ followers|length }}</strong>
+                        <span>Takipçi</span>
+                    </button>
+                    <button class="mini-social-btn" data-social-panel="following-panel" type="button">
+                        <strong id="following-count">{{ following|length }}</strong>
+                        <span>Takip Edilen</span>
+                    </button>
+                </div>
+                <div class ="user-details">
+                    <h2>{{ isim }}</h2>
+                    {% if own_profile %}
+                    <button class = "edit-btn"> Profili Düzenle</button>
+                    {% endif %}
+                </div>
+            </div>
+            {% if not own_profile %}
+            <button class="follow-btn{% if is_following %} is-following{% endif %}" data-user-id="{{ user.id }}">
+                <i class="fa-solid fa-user-plus"></i>
+                <span>{% if is_following %}Takiptesin{% else %}Takip Et{% endif %}</span>
+            </button>
+            {% endif %}
+
+            <div class ="profile-stats">
+                <div class ="stat-box">
+                    <span class ="stat-number">{{ filmler|length }}</span>
+                    <span class ="stat-label">Filmler</span>
+                </div>
+                <div class ="stat-box">
+                    <span class ="stat-number">{{ izlenecekler|length }}</span>
+                    <span class ="stat-label">İzlenecek</span>
+                </div>
+                <button class ="stat-box profile-panel-trigger" data-profile-panel="comments-panel" type="button">
+                    <span class ="stat-number">{{ yorum_sayisi }}</span>
+                    <span class ="stat-label">Yorumlar</span>
+                </button>
+                <div class ="stat-box">
+                    <span class ="stat-number">{{ favoriler|length }}</span>
+                    <span class ="stat-label">Favoriler</span>
+                </div>
+                <div class ="stat-box">
+                    <span class ="stat-number">{{ incelemeler|length }}</span>
+                    <span class ="stat-label">İnceleme</span>
+                </div>
+            </div>
+        </header>
+
+    <section class="profile-social-panel" id="profileSocialPanel">
+        <div class="social-panel-head">
+            <h2>Takip Listesi</h2>
+            <button class="social-panel-close" type="button" aria-label="Kapat">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="social-tabs">
+            <button class="social-tab active" data-social-panel="followers-panel" type="button">Takipçiler</button>
+            <button class="social-tab" data-social-panel="following-panel" type="button">Takip Edilen</button>
+        </div>
+        <input id="socialUserSearch" class="social-user-search" type="text" placeholder="Kullanıcı ara..." autocomplete="off">
+        <div id="followers-panel" class="social-panel active">
+            {% if followers %}
+                {% for person in followers %}
+                <a class="social-user-chip" href="{{ person.profile_url }}">
+                    <span class="mini-avatar">
+                        {% if person.avatar_path %}
+                        <img src="{{ url_for('static', filename=person.avatar_path) }}" alt="{{ person.username }}">
+                        {% else %}
+                        <i class="fa-solid fa-user"></i>
+                        {% endif %}
+                    </span>
+                    <span>{{ person.username }}</span>
+                </a>
+                {% endfor %}
+            {% else %}
+            <p class="empty-social-line">Henüz takipçi yok.</p>
+            {% endif %}
+        </div>
+        <div id="following-panel" class="social-panel">
+            {% if following %}
+                {% for person in following %}
+                <a class="social-user-chip" href="{{ person.profile_url }}">
+                    <span class="mini-avatar">
+                        {% if person.avatar_path %}
+                        <img src="{{ url_for('static', filename=person.avatar_path) }}" alt="{{ person.username }}">
+                        {% else %}
+                        <i class="fa-solid fa-user"></i>
+                        {% endif %}
+                    </span>
+                    <span>{{ person.username }}</span>
+                </a>
+                {% endfor %}
+            {% else %}
+            <p class="empty-social-line">Henüz kimse takip edilmiyor.</p>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="profile-activity-panel" id="comments-panel" hidden>
+        <div class="section-header">
+            <div class="section-title">
+                <h2>{% if own_profile %}Yorumlarım{% else %}{{ isim }} Yorumları{% endif %}</h2>
+                <span class="count">{{ yorum_sayisi }} Yorum</span>
+            </div>
+            <button class="activity-panel-close" type="button" aria-label="Kapat">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        {% if yorumlar %}
+        <div class="profile-comment-list">
+            {% for yorum in yorumlar %}
+            <article class="profile-comment-card">
+                <a href="/detay?id={{ yorum.movie_id }}" class="profile-comment-movie">
+                    <i class="fa-solid fa-film"></i>
+                    Film Detayına Git
+                </a>
+                <p>{{ yorum.content }}</p>
+                <span>{{ yorum.created_at }}</span>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-activity">Henüz yorum yok. Bir film sayfasında yorum yazınca burada görünecek.</div>
+        {% endif %}
+    </section>
+    
+    {% if own_profile %}
+    <div class = "mood-test-banner">
+        <div class = "banner-content">
+        <h3>Hoş geldin {{ isim }}, bugün ne izlemek istersin?</h3>
+        <p>Hemen testi çöz ve senin ruh halin için en uygun filmleri bulalım!</p>
+        </div>
+        <a href = "#" class="start-test-btn"><i class="fa-solid fa-bolt"></i> Teste Başla</a>
+    </div>
+    {% endif %}
+
+    <section class="favorite-section">
+    <div class="section-header">
+        <div class="section-title">
+            <h2>İzlediğim Filmler</h2>
+            <span class="count">{{ filmler|length }} Film</span>
+        </div>
+        <button id="show-all-btn" class="show-all-link">Tümünü Göster <i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <div class="movie-slider-container">
+        <div class="movie-slider" id="movie-slider">
+            {% for film in filmler %}
+            <div class="movie-card-item" data-movie-id="{{ film.movie_id }}" data-action="izlendi">
+                <a href="/detay?id={{ film.movie_id }}">
+                    <img src="https://image.tmdb.org/t/p/w500{{ film.poster }}" alt="{{ film.title }}" style="cursor: pointer;">
+                </a>
+                <button class="remove-movie-btn" onclick="filmiSil('{{ film.movie_id }}', this, 'izlendi')" title="Listeden Kaldır">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            {% endfor %}
+
+            <div class="empty-poster slider-add-btn" onclick="openSearchModal('izlendi')">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section class="favorite-section" style="margin-top: 40px;">
+    <div class="section-header">
+        <div class="section-title">
+            <h2>İzlenecek Filmler</h2>
+            <span class="count">{{ izlenecekler|length }} Film</span>
+        </div>
+    </div>
+
+    <div class="movie-slider-container">
+        <div class="movie-slider" id="watchlist-slider">
+            {% for film in izlenecekler %}
+            <div class="movie-card-item" data-movie-id="{{ film.movie_id }}" data-action="izlenecek">
+                <a href="/detay?id={{ film.movie_id }}">
+                    <img src="https://image.tmdb.org/t/p/w500{{ film.poster }}" alt="{{ film.title }}" style="cursor: pointer;">
+                </a>
+                <button class="remove-movie-btn" onclick="filmiSil('{{ film.movie_id }}', this, 'izlenecek')" title="Listeden Kaldır">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            {% endfor %}
+
+            <div class="empty-poster slider-add-btn" data-action="izlenecek" onclick="openSearchModal('izlenecek')">
+                <i class="fa-solid fa-bookmark" style="color: #9fd6ff;"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section class="favorite-section" style="margin-top: 40px;">
+    <div class="section-header">
+        <div class="section-title">
+            <h2>Favori Filmlerim</h2>
+            <span class="count">{{ favoriler|length }} Film</span>
+        </div>
+        <button class="show-all-link">Tümünü Göster <i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <div class="movie-slider-container">
+        <div class="movie-slider" id="favorite-slider">
+            
+            {% for film in favoriler %}
+            <div class="movie-card-item" data-movie-id="{{ film.movie_id }}" data-action="favori">
+                <a href="/detay?id={{ film.movie_id }}">
+                    <img src="https://image.tmdb.org/t/p/w500{{ film.poster }}" alt="{{ film.title }}" style="cursor: pointer;">
+                </a>
+                <button class="remove-movie-btn" onclick="filmiSil('{{ film.movie_id }}', this, 'favori')" title="Favorilerden Kaldır">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            {% endfor %}
+
+            <div class="empty-poster slider-add-btn" onclick="openSearchModal('favori')">
+                <i class="fa-solid fa-heart" style="color: #fb7299;"></i>
+            </div>
+    </div>
+</section>
+
+    <section class="favorite-section profile-reviews-section">
+        <div class="section-header">
+            <div class="section-title">
+                <h2>İncelemelerim</h2>
+                <span class="count">{{ incelemeler|length }} İnceleme</span>
+            </div>
+        </div>
+
+        {% if incelemeler %}
+        <div class="profile-review-grid">
+            {% for review in incelemeler %}
+            <article class="profile-review-card">
+                <a href="/detay?id={{ review.movie_id }}" class="profile-review-poster">
+                    <img src="{% if review.poster %}https://image.tmdb.org/t/p/w500{{ review.poster }}{% else %}https://via.placeholder.com/160x240?text=Yok{% endif %}" alt="{{ review.movie_title }}">
+                </a>
+                <div class="profile-review-body">
+                    <a href="/detay?id={{ review.movie_id }}" class="profile-review-title">{{ review.movie_title }}</a>
+                    <div class="profile-review-meta">
+                        <span><i class="fa-solid fa-star"></i> {{ review.rating }}/5</span>
+                        <span><i class="fa-solid fa-heart"></i> {{ review.like_count }}</span>
+                        <span><i class="fa-regular fa-comment"></i> {{ review.reply_count }}</span>
+                    </div>
+                    <p>{{ review.content }}</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-activity">Henüz inceleme yok. Bir filme puan verip yazmaya başlayınca burada görünecek.</div>
+        {% endif %}
+    </section>
+</div>
+
+    <div id="test-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn" id="close-test-modal">&times;</span>
+            
+            <div id="test-container">
+                <div class="test-header">
+                    <span id="question-counter" class="q-counter">Soru 1 / 4</span>
+                    <div class="progress-bar">
+                        <div id="progress" class="progress-fill"></div>
+                    </div>
+                </div>
+                
+                <h2 id="question-text">Soru buraya gelecek...</h2>
+                
+                <div id="options-container" class="options-grid">
+                </div>
+            </div>
+
+            <div id="loading-result" style="display: none; padding: 40px 0; text-align: center;">
+                <div class="spinner" style="width: 50px; height: 50px; border: 5px solid #333; border-top-color: #fff; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;"></div>
+                <h2>Ruh halin analiz ediliyor...</h2>
+            </div>
+            
+            <div id="mood-reveal-screen" style="display: none; height: 100%; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px;">
+                <h2 style="color: #fff; font-size: 2.5rem; margin-bottom: 15px; font-weight: 800; text-shadow: 0 5px 15px rgba(0,0,0,0.8);">Test Sonucun Hazır!</h2>
+                <p id="reveal-mood-title" class="mood-badge" style="font-size: 1.5rem; margin-bottom: 40px; text-shadow: 0 0 15px rgba(251, 114, 153, 0.6);"></p>
+                
+                <button id="show-movie-btn" class="netflix-btn-primary" style="font-size: 1.3rem; padding: 15px 40px; border-radius: 50px;">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Filmi Gör
+                </button>
+            </div>
+
+            <div id="test-result" style="display: none; height: 100%; width: 100%;">
+                <div class="dual-modal-wrapper">
+                    <div class="movie-column algo-choice" id="algo-column">
+                        <div class="column-bg">
+                            <img id="algo-poster" src="" alt="Algoritmanın Seçimi">
+                            <div class="bg-overlay"></div>
+                        </div>
+                        <div class="column-content">
+                            <div class="choice-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Algoritmanın Seçimi</div>
+                            <p id="mood-title" class="mood-badge">Mood yakalanıyor</p>
+                            <h2 id="hero-title" class="dual-title">Yükleniyor...</h2>
+                            <p id="hero-meta" class="dual-meta">Tür • Yıl</p>
+                            <p id="hero-desc" class="dual-desc">Test cevaplarına göre sana en yakın filmi buluyoruz.</p>
+                            <div class="dual-buttons">
+                                <button class="play-btn" id="hero-trailer-btn"><i class="fa-solid fa-play"></i> Fragmanı İzle</button>
+                                <button class="netflix-btn-tertiary" id="suggest-another-btn"><i class="fa-solid fa-shuffle"></i> Yeni Film Öner</button>
+                                <button class="netflix-btn-secondary" id="restart-test-btn"><i class="fa-solid fa-rotate-left"></i> Testi Yeniden Çöz</button>
+                                <button class="netflix-btn-primary" id="hero-more-btn"><i class="fa-solid fa-circle-info"></i> Film Detayları</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+    
+    <button id="stop-video-btn"><i class="fa-solid fa-arrow-left"></i> Geri Dön</button>
+    <div id="video-container">
+        <iframe id="trailer-iframe" src="" allowfullscreen></iframe>
+    </div>
+</div>
+
+            <div class="ai-section">
+                <div class="ai-header">
+                    <h3 class="grid-title">Senin İçin Seçtiklerimiz</h3>
+                    <button id="refresh-ai-btn" class="refresh-btn">
+                        <i class="fa-solid fa-rotate-right"></i> Yenile
+                    </button>
+                </div>
+                <div id="ai-grid" class="ai-grid-custom"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="searchModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content search-modal">
+        <span class="close-btn" id="close-search">&times;</span>
+        <h2>Film Ara ve Ekle</h2>
+        <input type="text" id="searchInput" placeholder="Bir film adı yazın..." autocomplete="off">
+        <div id="searchResults" class="search-results-container">
+        </div>
+    </div>
+</div>
+
+<div id="profileEditModal" class="modal-overlay profile-edit-overlay" style="display: none;">
+    <div class="profile-edit-card">
+        <span class="close-btn" id="close-profile-edit">&times;</span>
+        <h2>Profili Düzenle</h2>
+        <form action="{{ url_for('profil_guncelle') }}" method="POST" enctype="multipart/form-data" class="profile-edit-form">
+            <label class="profile-file-picker">
+                <span>Profil fotoğrafı</span>
+                <input type="file" name="avatar" accept="image/png,image/jpeg,image/webp,image/gif">
+            </label>
+
+            <div class="backdrop-picker">
+                <label for="profileBackdropSearch">Arka plan için film ara</label>
+                <input type="text" id="profileBackdropSearch" placeholder="Örn. La La Land, Fight Club..." autocomplete="off">
+                <input type="hidden" name="backdrop_path" id="profileBackdropPath">
+                <div id="profileBackdropPreview" class="backdrop-preview">
+                    {% if user and user.backdrop_path %}
+                    <img src="https://image.tmdb.org/t/p/w780{{ user.backdrop_path }}" alt="Mevcut arka plan">
+                    {% else %}
+                    <span>Film arka planı seçilmedi</span>
+                    {% endif %}
+                </div>
+                <div id="profileBackdropResults" class="backdrop-results"></div>
+            </div>
+
+            <div class="profile-edit-actions">
+                <button type="submit" class="send-btn">Kaydet</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script src="{{ url_for('static', filename='config.js') }}"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

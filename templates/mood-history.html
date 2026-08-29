@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinematch - Mood Geçmişim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+</head>
+<body class="mood-history-page">
+    <nav class="cinematch-navbar">
+        <div class="nav-logo" onclick="location.href='{{ url_for('kesfet') }}'">
+            <span>C</span><span>I</span><span>N</span><span>E</span><span>M</span><span>A</span><span>T</span><span>C</span><span>H</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('kesfet') }}">Ana Sayfa</a></li>
+            <li><a href="{{ url_for('mood_gecmisim') }}">Mood Geçmişim</a></li>
+            <li><a href="{{ url_for('profil_sayfasi', isim=viewer.username) }}">Profilim</a></li>
+        </ul>
+        <div class="nav-user">
+            <a href="{{ url_for('logout') }}" class="nav-logout"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+        </div>
+    </nav>
+
+    <main class="history-shell">
+        <section class="history-hero">
+            <span class="discover-kicker">Mood Geçmişim</span>
+            <h1>Önceden sana düşen filmler burada.</h1>
+            <p>Testi çözdüğün gün, yakalanan mood ve çıkan öneriler kaydedilir. Üstüne tıklayınca o günkü filmleri açabilirsin.</p>
+        </section>
+
+        {% if history_groups %}
+        <section class="history-list">
+            {% for group in history_groups %}
+            <article class="history-group{% if loop.first %} is-open{% endif %}">
+                <button class="history-group-toggle" type="button">
+                    <span>{{ group.date_label }}</span>
+                    <strong>{{ group.date_label }}: moodun {{ group.mood_label }}</strong>
+                    <small>{{ group.date_text }} · {{ group.movies|length }} öneri</small>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="history-movies">
+                    {% for result in group.movies %}
+                    <article class="mood-history-card">
+                        <a href="/detay?id={{ result.movie_id }}">
+                            <img src="{% if result.poster %}https://image.tmdb.org/t/p/w500{{ result.poster }}{% else %}https://via.placeholder.com/160x240?text=Yok{% endif %}" alt="{{ result.movie_title }}">
+                        </a>
+                        <div>
+                            <span>{{ group.mood_label }}</span>
+                            <h3>{{ result.movie_title }}</h3>
+                            <p>{{ result.created_at.strftime('%H:%M') }} · {{ result.overview[:92] }}{% if result.overview and result.overview|length > 92 %}...{% endif %}</p>
+                            <div class="mood-history-actions">
+                                <a href="/detay?id={{ result.movie_id }}" class="mini-link-btn">Detay</a>
+                                <button type="button" class="mini-link-btn" onclick='veritabaninaKaydet({{ result.movie_id }}, {{ result.movie_title|tojson }}, {{ result.poster|tojson }}, "izlendi", this)'>İzledim</button>
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </article>
+            {% endfor %}
+        </section>
+        {% else %}
+        <section class="history-empty">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <h2>Henüz mood geçmişin yok.</h2>
+            <p>Profilinden testi çözdüğünde öneriler buraya tarih tarih düşecek.</p>
+            <a href="{{ url_for('profil_sayfasi', isim=viewer.username) }}" class="mini-link-btn">Teste Git</a>
+        </section>
+        {% endif %}
+    </main>
+
+    <script src="{{ url_for('static', filename='config.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

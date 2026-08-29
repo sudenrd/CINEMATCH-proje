@@ -1,0 +1,31 @@
+# Local config and secrets
+static/config.js
+.env
+.env.*
+!.env.example
+
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+.venv-*/
+venv/
+ENV/
+
+# Local Flask/SQLite data
+instance/
+*.db
+*.sqlite
+*.sqlite3
+
+# User-generated uploads
+static/uploads/
+
+# Editor/OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Archives
+*.zip
