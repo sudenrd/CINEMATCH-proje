@@ -1,10 +1,10 @@
 # 🎬 Cinematch
-Cinematch, akşamları ne izlesem diye saatlerce düşünme derdini bitiren sosyal bir film platformu. Sitenin en büyük ve en önemli özelliği size 10 soruluk bir mood testi sunması. Bu testi çözdüğünüzde sistem o anki psikolojinizi analiz ediyor ve tamamen sizin o anki moodunuza nokta atışı uyacak filmleri karşınıza çıkarıyor. Klasik arama motorları gibi sadece isimle film aratıp çıktığınız bir yer değil; kendi profilinizi açıp arkadaşlarınızı takip edebildiğiniz, izlediğiniz filmlere yorum yapıp beğendiklerinizi favlayabildiğiniz interaktif bir ortam. TMDB veritabanını kullanarak sinema keyfini hem kişiselleştirilmiş bir deneyime hem de canlı bir sosyal ağa dönüştürüyor.
+Cinematch, akşamları "ne izlesem" diye saatlerce düşünme derdini bitiren sosyal bir film platformu. Site kullanıcıya bir mood testi sunuyor. Bu testi çözdüğünüzde sistem o anki psikolojinizi analiz ediyor ve tamamen sizin o anki moodunuza nokta atışı uyacak filmleri karşınıza çıkarıyor. Klasik arama motorları gibi sadece isimle film aratıp çıktığınız bir yer değil; kendi profilinizi açıp arkadaşlarınızı takip edebildiğiniz, izlediğiniz filmlere yorum yapıp beğendiklerinizi favorileyebildiğiniz interaktif bir ortam. TMDB veritabanını kullanarak sinema keyfini hem kişiselleştirilmiş bir deneyime hem de canlı bir sosyal ağa dönüştürüyor.
 
 **Öne Çıkan Özellikler**
-* **Mood Testi:** Kullanıcıların o anki ruh halini tespit etmek için hazırlanan dinamik bir test. Sistem, verilen cevapları analiz ederek kişinin neşeli, melankolik veya aksiyon arayan moduna en uygun filmleri süzerek özel bir öneri listesi oluşturur.
+* **Mood Testi:** Kullanıcıların o anki ruh halini tespit etmek için hazırlanan dinamik bir test. Sistem, verilen cevapları analiz ederek kişinin moduna en uygun filmleri süzerek özel bir öneri listesi oluşturur.
 * **Sosyal Profil ve Takip Sistemi:** Kullanıcılar platform üzerinde kendilerine ait bir alan yaratabilir, film zevkini beğendikleri diğer üyeleri takip ederek toplulukla etkileşimde kalabilirler.
-* **Etkileşim, Yorum ve Değerlendirme:** Yapımların altına kişisel incelemelerinizi yazabilir, filmlere puan verebilir ve beğendiklerinizi kendi favori (fav) listenizde toplayabilirsiniz.
+* **Etkileşim, Yorum ve Değerlendirme:** Yapımların altına kişisel incelemelerinizi yazabilir, filmlere puan verebilir ve beğendiklerinizi kendi favori listenizde toplayabilirsiniz.
 * **Gelişmiş Filtreleme ve Sıralama:** Filmler kategorilerine göre hızlıca ayrıştırılabilir ve veri kalabalığında kaybolmamak için IMDb/TMDB puanlarına veya popülerlik derecelerine göre yüksekten düşüğe doğru sıralanabilir.
 
 **Ekran Görüntüleri**
