@@ -20,9 +20,6 @@ Cinematch, akşamları "ne izlesem" diye saatlerce düşünme derdini bitiren so
 *Kategori Görünümü*
 ![Kategori](https://github.com/sudenrd/CINEMATCH-proje/blob/main/static/tan%C4%B1t%C4%B1m%20g%C3%B6rselleri/Kategori%20g%C3%B6r%C3%BCn%C3%BCm%C3%BC.png)
 
-*Kategori Sayfası İçinde Yer Alan Film Detayları*
-![Kategori Detay](https://github.com/sudenrd/CINEMATCH-proje/blob/main/static/tan%C4%B1t%C4%B1m%20g%C3%B6rselleri/Kategori%20sayfas%C4%B1%20i%C3%A7inde%20yer%20alan%20film%20detaylar%C4%B1%20g%C3%B6r%C3%BCn%C3%BCm%C3%BC.png)
-
 *Yorum Yapma Bölümü*
 ![Yorum Sistemi](https://github.com/sudenrd/CINEMATCH-proje/blob/main/static/tan%C4%B1t%C4%B1m%20g%C3%B6rselleri/Yorum%20yapma%20b%C3%B6l%C3%BCm%C3%BC.png)
 
