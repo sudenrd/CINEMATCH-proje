@@ -7,7 +7,6 @@ Cinematch, akşamları "ne izlesem" diye saatlerce düşünme derdini bitiren so
 * **Etkileşim, Yorum ve Değerlendirme:** Yapımların altına kişisel incelemelerinizi yazabilir, filmlere puan verebilir ve beğendiklerinizi kendi favori listenizde toplayabilirsiniz.
 * **Gelişmiş Filtreleme ve Sıralama:** Filmler kategorilerine göre hızlıca ayrıştırılabilir ve veri kalabalığında kaybolmamak için IMDb/TMDB puanlarına veya popülerlik derecelerine göre yüksekten düşüğe doğru sıralanabilir.
 
-**Ekran Görüntüleri**
 
 *Ana Ekran Görünümü*
 ![Ana Ekran](https://github.com/sudenrd/CINEMATCH-proje/blob/main/static/tan%C4%B1t%C4%B1m%20g%C3%B6rselleri/anaekran.png)
